@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "diffworker.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +18,11 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    DiffWorker worker;
+    DiffSettings makeSettings() const;
+private slots:
+    void slotModelChanged(quint8 modelIndex);
+    void slotSolve();
 };
 
 #endif // MAINWINDOW_H

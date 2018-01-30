@@ -1,18 +1,22 @@
 #ifndef LOTKAVOLTERRAMODEL_H
 #define LOTKAVOLTERRAMODEL_H
 
-#include <QGenericPlugin>
+#include "../idynmodelplugin.h"
 
-
-class LotkaVolterraModel : public QGenericPlugin
+class LotkaVolterraModel : public QObject, public IDynModelPlugin
 {
     Q_OBJECT
 #if QT_VERSION >= 0x050000
-    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QGenericPluginFactoryInterface" FILE "lotkavolterramodel.json")
+    Q_PLUGIN_METADATA(IID IDynModelPlugin_iid FILE "lotkavolterramodel.json")
+    Q_INTERFACES(IDynModelPlugin)
 #endif // QT_VERSION >= 0x050000
 
 public:
-    LotkaVolterraModel(QObject *parent = 0);
+    explicit LotkaVolterraModel(QObject *parent = 0);
+    virtual ~LotkaVolterraModel();
+    // IDynModelPlugin interface
+public:
+    QList<Element> differentiate(const DiffSettings &settings);
 };
 
 #endif // LOTKAVOLTERRAMODEL_H

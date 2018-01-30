@@ -1,19 +1,21 @@
-#include "lotkavolterramodel.h"
-#include <QDebug>
+#include "loglotkavolterra.h"
+#include <cmath>
 
-LotkaVolterraModel::LotkaVolterraModel(QObject *parent) :
+LogLotkaVolterra::LogLotkaVolterra(QObject *parent) :
     QObject(parent)
 {
-    qDebug() << ">> Lotka-Volterra model has been loaded";
+    qDebug() << ">> Logistic Lotka-Volterra model has been loaded";
 }
 
-LotkaVolterraModel::~LotkaVolterraModel()
+LogLotkaVolterra::~LogLotkaVolterra()
 {
-    qDebug() << "<< Lotka-Volterra model has been destroyed";
+    qDebug() << "<< Logistic Lotka-Volterra model has been destroyed";
 }
 
-QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
+QList<Element> LogLotkaVolterra::differentiate(const DiffSettings &settings)
 {
+    Q_ASSERT(settings.startValues.size() == settings.expressions);
+
     qreal   start = settings.startTime,
             end = settings.endTime,
             h = settings.step;
@@ -26,11 +28,15 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
     qreal   a   = settings.data.at(0),  // a - Коэф. рожд. жертв
             b   = settings.data.at(1),  // b - Коэф. убийства ж-вы х-ками
             c   = settings.data.at(2),  // c - Коэф. рожд. х-ков
-            d   = settings.data.at(3);  // d - Коэф. убыли х-ков
+            d   = settings.data.at(3),  // d - Коэф. убыли х-ков
+            alpha   = settings.data.at(4); // alp - Коэф. затухания
 
     // Количества жертв и хищников
     qreal   prev_x  = settings.startValues.at(0),
             prev_y  = settings.startValues.at(1);
+
+//    qreal   y0  = settings.startValues(1);
+
     // Новые x и y
     qreal   x,
             y;
@@ -45,24 +51,22 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
         Element element;
         if (method == DiffMethod::Eilers)
         {
-            x = prev_x + h*((a-b*prev_y)*prev_x);
-            y = prev_y + h*((-d+c*prev_x)*prev_y);
+            x = prev_x + h*((a-b*prev_y)*prev_y-alpha*pow(prev_x, 2.0));
+            y = prev_y + h*((-c+d*prev_x)*prev_y-alpha*pow(prev_y, 2.0));
         }
         if (method == DiffMethod::ModifiedEilers)
         {
             double K[2];
             // X
-            K[0] = h * ((a-b*prev_y)*prev_x);
-            K[1] = h * ((a-b*(prev_y+K[0]))*(prev_x+K[0]));
+            K[0] = h * ((a-b*prev_y)*prev_y-alpha*(prev_x*prev_x));
+            K[1] = h * ((a-b*(prev_y+K[0]))*(prev_y+K[0])-alpha*pow(prev_x+K[0], 2.0));
             x = prev_x + (K[0]+K[1])/2.0;
 
             // Y
-            K[0] = h * ((-d+c*prev_x)*prev_y);
-            K[1] = h * ((-d+c*(prev_x+K[0]))*(prev_y+K[0]));
+            K[0] = h * ((-c+d*prev_x)*prev_y-alpha*(prev_y*prev_y));
+            K[1] = h * ((-c+d*(prev_x+K[0]))*(prev_y+K[0])-alpha*pow(prev_y+K[0], 2.0));
             y = prev_y + (K[0]+K[1])/2.0;
         }
-        // Для нахождения первых 5-х [0;5) точек для Адамса
-        // Используется метод Р-К. Для избежания копипасты
         if (    method == DiffMethod::RungeKutta4thOrder ||
                 method == DiffMethod::AdamsBashforth4rdOrder)
         {
@@ -70,18 +74,18 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
             {
                 qreal K[4];
                 // X
-                K[0] = h* ((a-b*prev_y)*prev_x);
-                K[1] = h* ((a-b*(prev_y + K[0]/2.0))  * (prev_x + K[0]/2.0));
-                K[2] = h* ((a-b*(prev_y + K[1]/2.0))  * (prev_x + K[1]/2.0));
-                K[3] = h* ((a-b*(prev_y + K[2]))    * (prev_x + K[2]));
-                x = prev_x + ((K[0] + 2.0*K[1] + 2.0*K[2] + K[3]))/6.0;
+                K[0] = h* ((a-b*prev_y)*prev_y-alpha*pow(prev_x, 2.0));
+                K[1] = h* ((a-b*(prev_y + 0.5*K[0]))*(prev_y + 0.5*K[0])-alpha*pow(prev_x + 0.5*K[0], 2.0));
+                K[2] = h* ((a-b*(prev_y + 0.5*K[1]))*(prev_y + 0.5*K[1])-alpha*pow(prev_x + 0.5*K[1], 2.0));
+                K[3] = h* ((a-b*(prev_y + K[2]))*(prev_y + K[2])-alpha*pow(prev_x + K[2], 2.0));
+                x = prev_x + (K[0] + 2.0*K[1] + 2.0*K[2] + K[3])/6.0;
 
                 // Y
-                K[0] = h* ((-d + c*prev_x)*prev_y);
-                K[1] = h* ((-d + c*(prev_x + K[0]/2.0))  * (prev_y + K[0]/2.0));
-                K[2] = h* ((-d + c*(prev_x + K[1]/2.0))  * (prev_y + K[1]/2.0));
-                K[3] = h* ((-d + c*(prev_x + K[2]))  * (prev_y + K[2]));
-                y   = prev_y + ((K[0] + 2.0*K[1] + 2.0*K[2] + K[3]))/6.0;
+                K[0] = h* ((-c+d*prev_x)*prev_y-alpha*pow(prev_y, 2.0));
+                K[1] = h* ((-c+d*(prev_x + 0.5*K[0]))*(prev_y + 0.5*K[0]) - alpha*pow(prev_y + 0.5*K[0], 2.0));
+                K[2] = h* ((-c+d*(prev_x + 0.5*K[1]))*(prev_y + 0.5*K[1]) - alpha*pow(prev_y + 0.5*K[1], 2.0));
+                K[3] = h* ((-c+d*(prev_x + K[2]))*(prev_y + K[2]) - alpha*pow(prev_y + K[2], 2.0));
+                y   = prev_y + (K[0] + 2.0*K[1] + 2.0*K[2] + K[3])/6.0;
             }
         }
         if (method == DiffMethod::AdamsBashforth4rdOrder)
@@ -100,17 +104,17 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
                         y_2 = out.at(iteration-2).second.at(1), // Yn-2
                         y_1 = out.at(iteration-1).second.at(1); // Yn-1
 
-                x   = x_1 +h*((1901.0/720.0*(a-b*y_1)*x_1) -
-                              (1387.0/360.0*(a-b*y_2)*x_2) +
-                              (109.0/30.0*(a-b*y_3)*x_3)   -
-                              (637.0/360.0*(a-b*y_4)*x_4)  +
-                              (251.0/720.0*(a-b*y_5)*x_5));
+                x   = x_1 +h*((1901.0/720.0 *((a-b*y_1)*y_1-alpha*pow(x_1, 2.0))) -
+                              (1387.0/360.0 *((a-b*y_2)*y_2-alpha*pow(x_2, 2.0))) +
+                              (109.0/30.0   *((a-b*y_3)*y_3-alpha*pow(x_3, 2.0)))   -
+                              (637.0/360.0  *((a-b*y_4)*y_4-alpha*pow(x_4, 2.0)))  +
+                              (251.0/720.0  *((a-b*y_5)*y_5-alpha*pow(x_5, 2.0))));
 
-                y   = y_1 +h*((1901.0/720.0*(-d*y_1+c*x_1*y_1)) -
-                              (1387.0/360.0*(-d*y_2+c*x_2*y_2)) +
-                              (109.0/30.0*(-d*y_3+c*x_3*y_3)) -
-                              (637.0/360.0*(-d*y_4+c*x_4*y_4)) +
-                              (251.0/720.0*(-d*y_5+c*x_5*y_5)));
+                y   = y_1 +h*((1901.0/720.0 *((-c+d*x_1)*y_1-alpha*pow(y_1, 2.0))) -
+                              (1387.0/360.0 *((-c+d*x_2)*y_2-alpha*pow(y_2, 2.0))) +
+                              (109.0/30.0   *((-c+d*x_3)*y_3-alpha*pow(y_3, 2.0))) -
+                              (637.0/360.0  *((-c+d*x_4)*y_4-alpha*pow(y_4, 2.0))) +
+                              (251.0/720.0  *((-c+d*x_5)*y_5-alpha*pow(y_5, 2.0))));
             }
         }
         prev_x = x;
@@ -122,6 +126,6 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
         out << element;
         iteration++;
     }
-
     return out;
 }
+

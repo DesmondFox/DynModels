@@ -1,16 +1,28 @@
 #ifndef DIFFWORKER_H
 #define DIFFWORKER_H
 
+#include "pluginhandler.h"
 
-class DiffWorker : public QObject
+struct ASolveByMethod
 {
-    Q_OBJECT
+    DiffMethod method;
+    QList<Element> elements;
+};
+
+
+class DiffWorker
+{
 public:
-    explicit DiffWorker(QObject *parent = nullptr);
+    DiffWorker();
+    QList<ASolveByMethod> solve(DiffSettings settings, const quint8 &modelIndex) const;
+    QStringList getModelNames() const;
+    QList<Coef> getCoefs(const quint8 &modelIndex) const;
+    QStringList getRoles(const quint8 &modelIndex) const;
+    QString     getDescription(const quint8 &modelIndex) const;
 
-signals:
-
-public slots:
+    static const quint8 MethodNum = 4;
+private:
+    QList<Plugin> plugins;
 };
 
 #endif // DIFFWORKER_H

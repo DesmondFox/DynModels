@@ -4,9 +4,13 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui charts datavisualization
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+
+#QMAKE_CXXFLAGS_DEBUG += -pg -O2 -g
+#QMAKE_LFLAGS_DEBUG += -pg
 
 TARGET = DynModels
 TEMPLATE = app
@@ -22,13 +26,50 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+# Tell the qcustomplot header that it will be used as library:
+DEFINES += QCUSTOMPLOT_USE_LIBRARY QCUSTOMPLOT_USE_OPENGL
+
+# Link with debug version of qcustomplot if compiling in debug mode, else with release library:
+CONFIG(debug, release|debug) {
+  win32:QCPLIB = qcustomplotd2
+  else: QCPLIB = qcustomplotd
+} else {
+  win32:QCPLIB = qcustomplot2
+  else: QCPLIB = qcustomplot
+}
+
+LIBS += -L./ -l$$QCPLIB
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+    pluginhandler.cpp \
+    diffworker.cpp \
+    mainwindow.cpp \
+    intergrationsettingframe.cpp \
+    coefswidget.cpp \
+    coefitem.cpp \
+    populationsetframe.cpp \
+    resultwidget.cpp \
+    plot2d.cpp
 
 HEADERS += \
-        mainwindow.h
+    pluginhandler.h \
+    diffworker.h \
+    mainwindow.h \
+    intergrationsettingframe.h \
+    coefswidget.h \
+    coefitem.h \
+    populationsetframe.h \
+    resultwidget.h \
+    plot2d.h
 
 FORMS += \
-        mainwindow.ui
+    mainwindow.ui \
+    intergrationsettingframe.ui \
+    coefswidget.ui \
+    coefitem.ui \
+    populationsetframe.ui \
+    resultwidget.ui
+
+RESOURCES += \
+    res.qrc
