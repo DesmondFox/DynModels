@@ -67,7 +67,7 @@
            <string>2D график</string>
           </attribute>
          </widget>
-         <widget class="QWidget" name="tabPhase">
+         <widget class="PhasePortrait" name="tabPhase">
           <attribute name="title">
            <string>Фазовый портрет</string>
           </attribute>
@@ -183,6 +183,12 @@
    <class>Plot2D</class>
    <extends>QWidget</extends>
    <header>plot2d.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PhasePortrait</class>
+   <extends>QWidget</extends>
+   <header>phaseportrait.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

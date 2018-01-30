@@ -50,7 +50,8 @@ SOURCES += \
     coefitem.cpp \
     populationsetframe.cpp \
     resultwidget.cpp \
-    plot2d.cpp
+    plot2d.cpp \
+    phaseportrait.cpp
 
 HEADERS += \
     pluginhandler.h \
@@ -61,7 +62,8 @@ HEADERS += \
     coefitem.h \
     populationsetframe.h \
     resultwidget.h \
-    plot2d.h
+    plot2d.h \
+    phaseportrait.h
 
 FORMS += \
     mainwindow.ui \

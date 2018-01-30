@@ -23,8 +23,6 @@ private slots:
     void on_cbModEulers_clicked();
     void on_cbRungeKutta_clicked();
     void on_cbAdams_clicked();
-
-
 private:
     Ui::ResultWidget        *ui;
     QList<ASolveByMethod>   results;

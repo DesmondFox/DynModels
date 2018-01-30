@@ -6,7 +6,7 @@ ResultWidget::ResultWidget(QWidget *parent) :
     ui(new Ui::ResultWidget)
 {
     ui->setupUi(this);
-
+//    connect(ui->tabGraphs, SIGNAL(currentChanged(int)), )
 }
 
 ResultWidget::~ResultWidget()
