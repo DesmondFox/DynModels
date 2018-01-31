@@ -80,6 +80,8 @@ void ResultWidget::drawPlots()
 {
     Q_ASSERT(results.size() == DiffWorker::MethodNum);
 
+    ui->tabPhase->setRoles(roles);
+    ui->tabPhase->draw(Eilers, results.at(0).elements);
     ui->tab2DCurves->clearPlot();
     if (!roles.isEmpty())
     {

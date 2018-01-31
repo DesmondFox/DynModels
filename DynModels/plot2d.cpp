@@ -8,6 +8,7 @@ Plot2D::Plot2D(QWidget *parent) : QCustomPlot(parent)
     xAxis->setLabel("Продолжительность, года");
     yAxis->setLabel("Популяция, шт");
     legend->setVisible(false);
+    setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 }
 
 void Plot2D::drawSeries(const DiffMethod &method, const QList<Element> &data)
