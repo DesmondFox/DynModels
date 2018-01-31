@@ -76,30 +76,18 @@
        </item>
        <item>
         <widget class="QGroupBox" name="groupBox">
-         <property name="maximumSize">
+         <property name="minimumSize">
           <size>
-           <width>9999</width>
-           <height>74</height>
+           <width>0</width>
+           <height>93</height>
           </size>
          </property>
          <property name="title">
           <string>Метод</string>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="flat">
-          <bool>false</bool>
-         </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
          <layout class="QFormLayout" name="formLayout">
           <item row="0" column="0">
            <widget class="QCheckBox" name="cbEulers">
-            <property name="toolTip">
-             <string>Синий</string>
-            </property>
             <property name="text">
              <string>Метод Эйлера</string>
             </property>
@@ -107,22 +95,10 @@
              <iconset resource="res.qrc">
               <normaloff>:/icons/icons/blue.png</normaloff>:/icons/icons/blue.png</iconset>
             </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-            <property name="tristate">
-             <bool>false</bool>
-            </property>
            </widget>
           </item>
           <item row="0" column="1">
            <widget class="QCheckBox" name="cbRungeKutta">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>17</height>
-             </size>
-            </property>
             <property name="text">
              <string>Метод Рунге-Кутты 4-го порядка</string>
             </property>
@@ -146,7 +122,7 @@
           <item row="1" column="1">
            <widget class="QCheckBox" name="cbAdams">
             <property name="text">
-             <string>Метод Адамса-Вашфорта 4-го порядка</string>
+             <string>Метод Адамса Башфорта 4-го порядка</string>
             </property>
             <property name="icon">
              <iconset resource="res.qrc">
@@ -159,7 +135,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab3DPlot">
+     <widget class="TabPlot3D" name="tab3DPlot">
       <attribute name="title">
        <string>3D График</string>
       </attribute>
@@ -189,6 +165,12 @@
    <class>PhasePortrait</class>
    <extends>QWidget</extends>
    <header>phaseportrait.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TabPlot3D</class>
+   <extends>QWidget</extends>
+   <header>tabplot3d.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -18,16 +18,20 @@ public:
     explicit ResultWidget(QWidget *parent = 0);
     ~ResultWidget();
     void setData(const QList<ASolveByMethod> &solve, const QStringList &roleslist);
+    void drawGraphs();
 private slots:
     void on_cbEulers_clicked();
     void on_cbModEulers_clicked();
     void on_cbRungeKutta_clicked();
     void on_cbAdams_clicked();
+    void slotTabWidgetIndexChanged(int index);
+    void on_cbEulers_stateChanged(int arg1);
+
 private:
     Ui::ResultWidget        *ui;
     QList<ASolveByMethod>   results;
     QStringList roles;
-    void drawGraphs();
+
     void checkClicked(const QCheckBox *cb, const DiffMethod &method, const quint8 &index);
     quint8 getSizeOfData() const;
     void draw2DPlots(const quint8 &index, const DiffMethod &method);

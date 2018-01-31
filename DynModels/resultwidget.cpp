@@ -9,6 +9,7 @@ ResultWidget::ResultWidget(QWidget *parent) :
 
     connect(ui->tab2DCurves,    SIGNAL(mouseHover(QPointF)), this, SIGNAL(sigMouseHoveredOn2DPlots(QPointF)));
     connect(ui->tabPhase,       SIGNAL(mouseHover(QPointF)), this, SIGNAL(sigMouseHoveredOn2DPlots(QPointF)));
+    connect(ui->tabWidget,      SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetIndexChanged(int)));
 }
 
 ResultWidget::~ResultWidget()
@@ -21,13 +22,17 @@ void ResultWidget::setData(const QList<ASolveByMethod> &solve, const QStringList
     results.clear();
     results = solve;
     roles   = roleslist;
+    ui->tab3DPlot->setData(solve, roleslist);
 
-    // Рисуем графики по методам, которые отмечены
-    drawGraphs();
+    if (ui->tabWidget->currentIndex() == 0)
+        this->drawGraphs();
+    if (ui->tabWidget->currentIndex() == 1)
+        ui->tab3DPlot->drawPlot();
 }
 
 void ResultWidget::on_cbEulers_clicked()
 {
+    qDebug() << "kek";
     checkClicked(ui->cbEulers, DiffMethod::Eilers, 0);
 }
 
@@ -44,6 +49,17 @@ void ResultWidget::on_cbRungeKutta_clicked()
 void ResultWidget::on_cbAdams_clicked()
 {
     checkClicked(ui->cbAdams, DiffMethod::AdamsBashforth4rdOrder, 3);
+}
+
+void ResultWidget::slotTabWidgetIndexChanged(int index)
+{
+    if (results.isEmpty())
+        return;
+
+    if (ui->tabWidget->currentIndex() == 0)
+        this->drawGraphs();
+    if (ui->tabWidget->currentIndex() == 1)
+        ui->tab3DPlot->drawPlot();
 }
 
 void ResultWidget::drawGraphs()
@@ -119,4 +135,9 @@ quint8 ResultWidget::getSizeOfData() const
     if (results.isEmpty())
         return -1;
     return results.first().elements.first().second.size();
+}
+
+void ResultWidget::on_cbEulers_stateChanged(int arg1)
+{
+    qDebug() << "lol";
 }

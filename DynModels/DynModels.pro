@@ -52,7 +52,9 @@ SOURCES += \
     resultwidget.cpp \
     plot2d.cpp \
     phaseportrait.cpp \
-    commonplot.cpp
+    commonplot.cpp \
+    tabplot3d.cpp \
+    plot3d.cpp
 
 HEADERS += \
     pluginhandler.h \
@@ -65,7 +67,9 @@ HEADERS += \
     resultwidget.h \
     plot2d.h \
     phaseportrait.h \
-    commonplot.h
+    commonplot.h \
+    tabplot3d.h \
+    plot3d.h
 
 FORMS += \
     mainwindow.ui \
@@ -73,7 +77,8 @@ FORMS += \
     coefswidget.ui \
     coefitem.ui \
     populationsetframe.ui \
-    resultwidget.ui
+    resultwidget.ui \
+    tabplot3d.ui
 
 RESOURCES += \
     res.qrc
