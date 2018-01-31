@@ -51,7 +51,8 @@ SOURCES += \
     populationsetframe.cpp \
     resultwidget.cpp \
     plot2d.cpp \
-    phaseportrait.cpp
+    phaseportrait.cpp \
+    commonplot.cpp
 
 HEADERS += \
     pluginhandler.h \
@@ -63,7 +64,8 @@ HEADERS += \
     populationsetframe.h \
     resultwidget.h \
     plot2d.h \
-    phaseportrait.h
+    phaseportrait.h \
+    commonplot.h
 
 FORMS += \
     mainwindow.ui \

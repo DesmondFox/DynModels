@@ -27,7 +27,12 @@ private:
     Ui::ResultWidget        *ui;
     QList<ASolveByMethod>   results;
     QStringList roles;
-    void drawPlots();
+    void drawGraphs();
+    void checkClicked(const QCheckBox *cb, const DiffMethod &method, const quint8 &index);
+    quint8 getSizeOfData() const;
+    void draw2DPlots(const quint8 &index, const DiffMethod &method);
+signals:
+    void sigMouseHoveredOn2DPlots(const QPointF &point);
 };
 
 #endif // RESULTWIDGET_H

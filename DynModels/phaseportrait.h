@@ -2,30 +2,26 @@
 #define PHASEPORTRAIT_H
 
 #include <QWidget>
-#include <qcustomplot.h>
-#include "diffworker.h"
+#include "commonplot.h"
 
-class PhasePortrait : public QCustomPlot
+class PhasePortrait : public CommonPlot
 {
     Q_OBJECT
 public:
     explicit PhasePortrait(QWidget *parent = nullptr);
-    void hideSeries(const DiffMethod &method);
-    void draw(const DiffMethod &method, const QList<Element> &data);
-    void clearPlot();
-    void setRoles(const QStringList &roleslist);
-
+    virtual void draw(const DiffMethod &method, const QList<Element> &data);
+    virtual void setRoles(const QStringList &roleslist);
+    virtual void hide(const DiffMethod &method);
+    virtual void clearPlot();
 private:
     static const quint8 LineWidth   = 2;
-    QCPGraph    *pEilersGraph;
-    QCPGraph    *pModEilersGraph;
-    QCPGraph    *pRKuttaGraph;
-    QCPGraph    *pAdamsGraph;
-    void prepareSeries();
-
+    QCPCurve *pEilersCurve;
+    QCPCurve *pModEilersCurve;
+    QCPCurve *pRungeKuttaCurve;
+    QCPCurve *pAdamsCurve;
+    void prepareItems();
+    QCPCurve *getCurve(const DiffMethod &method);
     QStringList roles;
-    QCPGraph    *getGraph(const DiffMethod &method);
-    bool        isCorrected(const qreal &value);
 };
 
 

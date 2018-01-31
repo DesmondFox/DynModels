@@ -1,27 +1,52 @@
 #include "phaseportrait.h"
 
-PhasePortrait::PhasePortrait(QWidget *parent) : QCustomPlot(parent)
+PhasePortrait::PhasePortrait(QWidget *parent) : CommonPlot(parent)
 {
-    setOpenGl(true);
-    prepareSeries();
+    prepareItems();
+    setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 }
 
-void PhasePortrait::prepareSeries()
+void PhasePortrait::prepareItems()
 {
-    pEilersGraph    = addGraph();
-    pModEilersGraph = addGraph();
-    pRKuttaGraph    = addGraph();
-    pAdamsGraph     = addGraph();
+    try
+    {
+        pEilersCurve    = new QCPCurve(xAxis, yAxis);
+        pModEilersCurve = new QCPCurve(xAxis, yAxis);
+        pRungeKuttaCurve= new QCPCurve(xAxis, yAxis);
+        pAdamsCurve     = new QCPCurve(xAxis, yAxis);
+    }
+    catch(std::bad_alloc &ex)
+    {
+        qDebug() << "Alloc failed: " << ex.what();
+        QApplication::exit(-10);
+    }
+    ///
+    /// Синий       - метод Эйлера
+    /// Красный     - мод. метод Эйлера
+    /// Зеленый     - метод Р-Кутты
+    /// Фиолетовый  - метод Адамса
+    ///
+    pEilersCurve->setPen(QPen(QBrush(Qt::blue), LineWidth));
+    pModEilersCurve->setPen(QPen(QBrush(Qt::red), LineWidth));
+    pRungeKuttaCurve->setPen(QPen(QBrush(Qt::green), LineWidth));
+    pAdamsCurve->setPen(QPen(QBrush(Qt::magenta), LineWidth));
 
-    pEilersGraph->setVisible(false);
-    pModEilersGraph->setVisible(false);
-    pRKuttaGraph->setVisible(false);
-    pAdamsGraph->setVisible(false);
+    pEilersCurve->setVisible(false);
+    pModEilersCurve->setVisible(false);
+    pRungeKuttaCurve->setVisible(false);
+    pAdamsCurve->setVisible(false);
+}
 
-    pEilersGraph->setPen(QPen(Qt::blue, LineWidth));
-    pModEilersGraph->setPen(QPen(Qt::red, LineWidth));
-    pRKuttaGraph->setPen(QPen(Qt::green, LineWidth));
-    pAdamsGraph->setPen(QPen(Qt::magenta, LineWidth));
+QCPCurve *PhasePortrait::getCurve(const DiffMethod &method)
+{
+    if (method == DiffMethod::Eilers)
+        return pEilersCurve;
+    if (method == DiffMethod::ModifiedEilers)
+        return pModEilersCurve;
+    if (method == DiffMethod::RungeKutta4thOrder)
+        return pRungeKuttaCurve;
+    if (method == DiffMethod::AdamsBashforth4rdOrder)
+        return pAdamsCurve;
 }
 
 void PhasePortrait::setRoles(const QStringList &roleslist)
@@ -32,67 +57,43 @@ void PhasePortrait::setRoles(const QStringList &roleslist)
     yAxis->setLabel(roleslist.at(1));
 }
 
-QCPGraph *PhasePortrait::getGraph(const DiffMethod &method)
+void PhasePortrait::hide(const DiffMethod &method)
 {
-    if (method == DiffMethod::Eilers)
-        return pEilersGraph;
-    if (method == DiffMethod::ModifiedEilers)
-        return pModEilersGraph;
-    if (method == DiffMethod::RungeKutta4thOrder)
-        return pRKuttaGraph;
-    if (method == DiffMethod::AdamsBashforth4rdOrder)
-        return pAdamsGraph;
-}
-
-bool PhasePortrait::isCorrected(const qreal &value)
-{
-    if (value < 100000)
-        return true;
-    return false;
-}
-
-void PhasePortrait::hideSeries(const DiffMethod &method)
-{
-    if (method == DiffMethod::Eilers)
-        pEilersGraph->setVisible(false);
-    if (method == DiffMethod::ModifiedEilers)
-        pModEilersGraph->setVisible(false);
-    if (method == DiffMethod::RungeKutta4thOrder)
-        pRKuttaGraph->setVisible(false);
-    if (method == DiffMethod::AdamsBashforth4rdOrder)
-        pAdamsGraph->setVisible(false);
-}
-
-void PhasePortrait::draw(const DiffMethod &method, const QList<Element> &data)
-{
-    if (data.first().second.size() != 2)
-    {
-        qDebug() << "Data.size() != 2";
-    }
-    QCPGraph *series = getGraph(method);
-    series->setVisible(true);
-
-    QVector<qreal> x;
-    QVector<qreal> y;
-    for (const Element &el : data)
-    {
-        x << el.second.at(0);
-        y << el.second.at(1);
-    }
-    series->setData(x, y, true);
-    rescaleAxes();
+    auto curve = getCurve(method);
+    /// WARNING: Костыль
+    curve->data().data()->clear();
+    curve->setVisible(false);
     replot();
 }
 
 void PhasePortrait::clearPlot()
 {
-    hideSeries(DiffMethod::Eilers);
-    hideSeries(DiffMethod::ModifiedEilers);
-    hideSeries(DiffMethod::RungeKutta4thOrder);
-    hideSeries(DiffMethod::AdamsBashforth4rdOrder);
+    hide(DiffMethod::Eilers);
+    hide(DiffMethod::ModifiedEilers);
+    hide(DiffMethod::RungeKutta4thOrder);
+    hide(DiffMethod::AdamsBashforth4rdOrder);
+    pEilersCurve->data().data()->clear();
+    pModEilersCurve->data().data()->clear();
+    pRungeKuttaCurve->data().data()->clear();
+    pAdamsCurve->data().data()->clear();
+}
 
-    pEilersGraph->data().data()->clear();
-    pModEilersGraph->data().data()->clear();
-    pRKuttaGraph->data().data()->clear();
-    pAdamsGraph->data().data()->clear();
+void PhasePortrait::draw(const DiffMethod &method, const QList<Element> &data)
+{
+    Q_ASSERT(data.first().second.size() == 2);
+    auto curve = getCurve(method);
+    curve->setVisible(true);
+
+    QVector<QCPCurveData> convertedData;
+    for (const Element &el : data)
+    {
+        qreal x = el.second.at(0);
+        qreal y = el.second.at(1);
+        if (isCorrected(x) && isCorrected(y))
+            convertedData << QCPCurveData(el.first, x, y);
+    }
+    curve->data().data()->set(convertedData, true);
+    axisRect()->setupFullAxesBox();
+    rescaleAxes();
+    replot();
 }

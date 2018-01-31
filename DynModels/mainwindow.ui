@@ -16,18 +16,31 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="ResultWidget" name="resultWidget" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>240</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
+      </property>
+      <property name="midLineWidth">
+       <number>1</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="ResultWidget" name="resultWidget" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>240</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QWidget" name="">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="PopulationSetFrame" name="populationFrame">
@@ -59,8 +72,8 @@
          </widget>
         </item>
        </layout>
-      </item>
-     </layout>
+      </widget>
+     </widget>
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">

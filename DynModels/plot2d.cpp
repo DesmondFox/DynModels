@@ -1,9 +1,9 @@
 #include "plot2d.h"
 
-Plot2D::Plot2D(QWidget *parent) : QCustomPlot(parent)
+Plot2D::Plot2D(QWidget *parent) : CommonPlot(parent)
 {
     maximalY = {0};
-    prepareGraphs();
+    prepareItems();
     setOpenGl(true);
     xAxis->setLabel("Продолжительность, года");
     yAxis->setLabel("Популяция, шт");
@@ -11,7 +11,7 @@ Plot2D::Plot2D(QWidget *parent) : QCustomPlot(parent)
     setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 }
 
-void Plot2D::drawSeries(const DiffMethod &method, const QList<Element> &data)
+void Plot2D::draw(const DiffMethod &method, const QList<Element> &data)
 {
     std::array<QCPGraph*, SeriesNum> series = getGraphs(method);
     quint8 methodIndex = getIndexByMethod(method);
@@ -72,7 +72,7 @@ void Plot2D::clearPlot()
     qDebug() << "Plot cleared";
 }
 
-void Plot2D::prepareGraphs()
+void Plot2D::prepareItems()
 {
     for (quint8 i = 0; i < m_EilersGraphs.size(); i++)
         m_EilersGraphs.at(i) = this->addGraph();
@@ -138,13 +138,6 @@ quint8 Plot2D::getIndexByMethod(const DiffMethod &method) const
     return -1;
 }
 
-bool Plot2D::isCorrected(const qreal &value)
-{
-    if (value < 100000)
-        return true;
-    return false;
-}
-
 void Plot2D::setRange()
 {
     qreal max = *std::max_element(maximalY.begin(), maximalY.end());
@@ -163,7 +156,7 @@ void Plot2D::setLegend(const DiffMethod &method)
     }
 }
 
-void Plot2D::hideSeries(const DiffMethod &method)
+void Plot2D::hide(const DiffMethod &method)
 {
     auto series = getGraphs(method);
     for (quint8 i = 0; i < series.size(); i++)

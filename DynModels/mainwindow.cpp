@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,8 +22,12 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->description->setText(worker.getDescription(ui->integrationSettings->getModelIdx()));
     }
 
+    pStatusBarLabel = new QLabel(tr("Готово"), ui->statusbar);
+    ui->statusbar->addWidget(pStatusBarLabel);
+
     connect(ui->integrationSettings, SIGNAL(modelHasChanged(quint8)), SLOT(slotModelChanged(quint8)));
     connect(ui->integrationSettings, SIGNAL(solveSig()), SLOT(slotSolve()));
+    connect(ui->resultWidget,        SIGNAL(sigMouseHoveredOn2DPlots(QPointF)), SLOT(slotMouseHoverOn2DPlot(QPointF)));
 }
 
 MainWindow::~MainWindow()
@@ -54,4 +59,12 @@ void MainWindow::slotSolve()
     ui->resultWidget->setData(worker.solve(makeSettings(), ui->integrationSettings->getModelIdx()),
                               worker.getRoles(ui->integrationSettings->getModelIdx()));
     qDebug() << "Done...";
+}
+
+void MainWindow::slotMouseHoverOn2DPlot(const QPointF &point)
+{
+    if (point.x() == -1.0 || point.y() == -1.0)
+        pStatusBarLabel->setText(tr(""));
+    else
+        pStatusBarLabel->setText(QString("X: %1\tY: %2").arg(point.x()).arg(point.y()));
 }
