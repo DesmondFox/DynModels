@@ -7,7 +7,8 @@ ResultWidget::ResultWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->tab2DCurves, SIGNAL(mouseHover(QPointF)), this, SIGNAL(sigMouseHoveredOn2DPlots(QPointF)));
+    connect(ui->tab2DCurves,    SIGNAL(mouseHover(QPointF)), this, SIGNAL(sigMouseHoveredOn2DPlots(QPointF)));
+    connect(ui->tabPhase,       SIGNAL(mouseHover(QPointF)), this, SIGNAL(sigMouseHoveredOn2DPlots(QPointF)));
 }
 
 ResultWidget::~ResultWidget()
