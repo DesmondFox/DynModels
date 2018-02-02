@@ -18,6 +18,8 @@ public:
     explicit CoefsWidget(QWidget *parent = 0);
     ~CoefsWidget();
     void    setCoefs(const QList<Coef> &coefs);
+    void    setValues(const QList<qreal> &values);
+
     QList<qreal>    getValues() const;
 
 private:

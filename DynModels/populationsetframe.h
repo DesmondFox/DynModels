@@ -16,6 +16,7 @@ public:
     ~PopulationSetFrame();
     void setFields(const QStringList &roles);
     QList<qreal> getValues() const;
+    void setValues(const QList<qreal> &values);
 
 private:
     Ui::PopulationSetFrame *ui;

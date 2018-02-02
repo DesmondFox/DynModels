@@ -6,6 +6,11 @@ DiffWorker::DiffWorker()
     plugins = hdlr.loadPlugins();
 }
 
+DiffWorker::~DiffWorker()
+{
+    /// WARNING: Удалить плагины
+}
+
 QList<ASolveByMethod> DiffWorker::solve(DiffSettings settings, const quint8 &modelIndex) const
 {
     Q_ASSERT(modelIndex < plugins.size());
@@ -50,4 +55,32 @@ QString DiffWorker::getDescription(const quint8 &modelIndex) const
 {
     Q_ASSERT(modelIndex < plugins.size());
     return plugins.at(modelIndex).metadata.description;
+}
+
+QStringList DiffWorker::getMethods() const
+{
+    QStringList out = {
+        "Метод Эйлера",
+        "Модифицированный метод Эйлера",
+        "Метод Рунге-Кутты 4-го порядка",
+        "Метод Адамса-Башфорта 4-го порядка"
+    };
+    return out;
+}
+
+quint8 DiffWorker::getModelID(const quint8 &modelIndex) const
+{
+    Q_ASSERT(modelIndex < plugins.size());
+    return plugins.at(modelIndex).metadata.id;
+}
+
+qint8 DiffWorker::getModelIndexByID(const quint8 &modelID) const
+{
+    qint8 idx = -1;
+    for (int i = 0; i < plugins.size(); i++)
+    {
+        if (plugins.at(i).metadata.id == modelID)
+            idx = i;
+    }
+    return idx;
 }

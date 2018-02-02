@@ -39,6 +39,27 @@ void IntergrationSettingFrame::setModels(const QStringList &modellist)
     ui->cbModel->addItems(modellist);
 }
 
+void IntergrationSettingFrame::setModelIndex(const quint8 &modelIndex)
+{
+    Q_ASSERT(modelIndex <= ui->cbModel->count());
+    ui->cbModel->setCurrentIndex(modelIndex);
+}
+
+void IntergrationSettingFrame::setStart(const qreal &value)
+{
+    ui->dsbStart->setValue(value);
+}
+
+void IntergrationSettingFrame::setEnd(const qreal &value)
+{
+    ui->dsbEnd->setValue(value);
+}
+
+void IntergrationSettingFrame::setStep(const qreal &value)
+{
+    ui->dsbStep->setValue(value);
+}
+
 void IntergrationSettingFrame::on_pushSolve_clicked()
 {
     emit solveSig();

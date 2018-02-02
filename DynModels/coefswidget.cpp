@@ -37,6 +37,12 @@ void CoefsWidget::setCoefs(const QList<Coef> &coefs)
     }
 }
 
+void CoefsWidget::setValues(const QList<qreal> &values)
+{
+    for (int i = 0; i < items.size(); i++)
+        items.at(i)->setValue(values.at(i));
+}
+
 QList<qreal> CoefsWidget::getValues() const
 {
     QList<qreal> out;

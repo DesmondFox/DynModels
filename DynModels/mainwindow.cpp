@@ -103,10 +103,44 @@ void MainWindow::on_acExportTxt_triggered()
 
 void MainWindow::on_acLoad_triggered()
 {
+    QString filename = QFileDialog::getOpenFileName(this, tr("Загрузка файла настроек"),
+                                                    QDir::homePath(), tr("Dynamic Models File (*.dm)"));
 
+    if (filename.isEmpty())
+        return;
+    if (!dataLoader.load(filename))
+    {
+        QMessageBox::critical(this, tr("Ошибка"), tr("Произошла ошибка загрузки"));
+        return;
+    }
+
+    auto modelIndex = worker.getModelIndexByID(dataLoader.getModelID());
+    auto coefs = dataLoader.getCoefValues();
+    auto popul = dataLoader.getPopulationValues();
+
+
+    ui->integrationSettings->setModelIndex(worker.getModelIndexByID(dataLoader.getModelID()));
+    ui->coefs->setValues(dataLoader.getCoefValues());
+    ui->populationFrame->setValues(dataLoader.getPopulationValues());
+    ui->integrationSettings->setStart(dataLoader.getStart());
+    ui->integrationSettings->setEnd(dataLoader.getEnd());
+    ui->integrationSettings->setStep(dataLoader.getStep());
 }
 
 void MainWindow::on_acSave_triggered()
 {
-
+    dataLoader.setModelID(worker.getModelID(ui->integrationSettings->getModelIdx()));
+    dataLoader.setPopulationValues(ui->populationFrame->getValues());
+    dataLoader.setCoefValues(ui->coefs->getValues());
+    dataLoader.setIntegrationSettings(ui->integrationSettings->getStart(),
+                                      ui->integrationSettings->getEnd(),
+                                      ui->integrationSettings->getStep());
+    QString filename = QFileDialog::getSaveFileName(this, tr("Сохранение файла настроек"),
+                                                    QDir::homePath(), tr("Dynamic Models File (*.dm)"));
+    if (filename.isEmpty())
+        return;
+   if (dataLoader.save(filename))
+       pStatusBarLabel->setText("Данные сохранены");
+   else
+       QMessageBox::critical(this, tr("Ошибка"), tr("Произошла ошибка сохранения"));
 }

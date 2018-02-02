@@ -62,7 +62,7 @@ Plugin::Metadata PluginHandler::loadMetadata(const QJsonObject &metadata)
     mtd.modelName   = modelData.value("ModelName").toString();
     mtd.expressions = modelData.value("NumberOfExpressions").toInt();
     mtd.description = modelData.value("Description").toString();
-    mtd.id          = modelData.value("ID").toString();
+    mtd.id          = modelData.value("ID").toString().toInt();
 
     // Загрузка данных для модели
     QJsonObject  data = modelData.value("Data").toObject();

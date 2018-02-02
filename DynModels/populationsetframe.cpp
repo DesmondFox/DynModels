@@ -43,3 +43,11 @@ QList<qreal> PopulationSetFrame::getValues() const
 
     return out;
 }
+
+void PopulationSetFrame::setValues(const QList<qreal> &values)
+{
+    ui->dsbField1->setValue(values.at(0));
+    ui->dsbField2->setValue(values.at(1));
+    if (values.size() == 3)
+        ui->dsbField3->setValue(values.at(2));
+}

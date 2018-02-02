@@ -21,6 +21,11 @@ public:
     quint8 getModelIdx()const;
 
     void    setModels(const QStringList &modellist);
+    void    setModelIndex(const quint8 &modelIndex);
+
+    void setStart(const qreal &value);
+    void setEnd(const qreal &value);
+    void setStep(const qreal &value);
 
 signals:
     void    solveSig();
