@@ -23,11 +23,22 @@ void ResultWidget::setData(const QList<ASolveByMethod> &solve, const QStringList
     results = solve;
     roles   = roleslist;
     ui->tab3DPlot->setData(solve, roleslist);
+    ui->tabTable->setData(solve, roleslist);
+
+    // Количество элементов
+    quint8 size = solve.first().elements.first().second.size();
+    if (size == 2)
+        ui->tabPhase->setEnabled(true);
+    if (size == 3)
+        ui->tabPhase->setEnabled(false);
+
 
     if (ui->tabWidget->currentIndex() == 0)
         this->drawGraphs();
     if (ui->tabWidget->currentIndex() == 1)
         ui->tab3DPlot->drawPlot();
+    if (ui->tabWidget->currentIndex() == 2)
+        ui->tabTable->printTable();
 }
 
 void ResultWidget::on_cbEulers_clicked()
@@ -60,6 +71,8 @@ void ResultWidget::slotTabWidgetIndexChanged(int index)
         this->drawGraphs();
     if (ui->tabWidget->currentIndex() == 1)
         ui->tab3DPlot->drawPlot();
+    if (ui->tabWidget->currentIndex() == 2)
+        ui->tabTable->printTable();
 }
 
 void ResultWidget::drawGraphs()
@@ -69,7 +82,8 @@ void ResultWidget::drawGraphs()
     if (!roles.isEmpty())
     {
         ui->tab2DCurves->setRoles(roles);
-        ui->tabPhase->setRoles(roles);
+        if (results.first().elements.first().second.size() == 2)
+            ui->tabPhase->setRoles(roles);
         ui->tab2DCurves->legend->setVisible(true);
 
     }
@@ -101,6 +115,16 @@ void ResultWidget::drawGraphs()
         draw2DPlots(0, DiffMethod::Eilers);
         ui->cbEulers->setChecked(true);
     }
+}
+
+QPixmap ResultWidget::getPlotPix() const
+{
+    return ui->tab2DCurves->toPixmap();
+}
+
+QPixmap ResultWidget::getPhasePix() const
+{
+    return ui->tabPhase->toPixmap();
 }
 
 void ResultWidget::draw2DPlots(const quint8 &index, const DiffMethod &method)
@@ -135,9 +159,4 @@ quint8 ResultWidget::getSizeOfData() const
     if (results.isEmpty())
         return -1;
     return results.first().elements.first().second.size();
-}
-
-void ResultWidget::on_cbEulers_stateChanged(int arg1)
-{
-    qDebug() << "lol";
 }

@@ -11,6 +11,7 @@ class Plot3D : public QWidget
     Q_OBJECT
 public:
     explicit Plot3D(QWidget *parent = nullptr);
+    ~Plot3D();
     void clear();
     void setRoles(const QStringList &roleslist);
     void draw(const QList<Element> &data, const Qt::GlobalColor &color);

@@ -5,7 +5,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    pExportDialog(new ExportDialog(this))
 {
     ui->setupUi(this);
     if (worker.getModelNames().isEmpty())
@@ -21,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->populationFrame->setFields(worker.getRoles(ui->integrationSettings->getModelIdx()));
         ui->description->setText(worker.getDescription(ui->integrationSettings->getModelIdx()));
     }
+
+    pExportDialog->setMethods(worker.getMethods());
 
     pStatusBarLabel = new QLabel(tr("Готово"), ui->statusbar);
     ui->statusbar->addWidget(pStatusBarLabel);
@@ -50,14 +53,18 @@ void MainWindow::slotModelChanged(quint8 modelIndex)
 {
     ui->coefs->setCoefs(worker.getCoefs(modelIndex));
     ui->description->setText(worker.getDescription(modelIndex));
+    ui->populationFrame->setFields(worker.getRoles(modelIndex));
     qDebug() << "Window:" << "New model changed";
 }
 
 void MainWindow::slotSolve()
 {
     qDebug() << "Start solving...";
-    ui->resultWidget->setData(worker.solve(makeSettings(), ui->integrationSettings->getModelIdx()),
-                              worker.getRoles(ui->integrationSettings->getModelIdx()));
+
+    auto solve = worker.solve(makeSettings(), ui->integrationSettings->getModelIdx());
+    auto roles = worker.getRoles(ui->integrationSettings->getModelIdx());
+    ui->resultWidget->setData(solve, roles);
+    pExportDialog->setData(solve, roles);
     qDebug() << "Done...";
 }
 
@@ -67,4 +74,39 @@ void MainWindow::slotMouseHoverOn2DPlot(const QPointF &point)
         pStatusBarLabel->setText(tr(""));
     else
         pStatusBarLabel->setText(QString("X: %1\tY: %2").arg(point.x()).arg(point.y()));
+}
+
+void MainWindow::on_acExit_triggered()
+{
+    if (QMessageBox::question(this, tr("Подтверждение"),
+                              tr("Вы действительно хотите выйти?"),
+                              QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+        QApplication::exit(0);
+}
+
+void MainWindow::on_acExportTxt_triggered()
+{
+    QStringList coefList;
+    auto raw = worker.getCoefs(ui->integrationSettings->getModelIdx());
+    for (const Coef &coef : raw)
+        coefList << coef.coefName;
+
+    pExportDialog->setCoefs(coefList, ui->coefs->getValues());
+
+    pExportDialog->setPopulations(worker.getRoles(ui->integrationSettings->getModelIdx()),
+                                  ui->populationFrame->getValues());
+    pExportDialog->setPlots(ui->resultWidget->getPlotPix(),
+                            ui->resultWidget->getPhasePix());
+    if (pExportDialog->exec() == QDialog::Accepted)
+        pStatusBarLabel->setText("Отчет сохранен");
+}
+
+void MainWindow::on_acLoad_triggered()
+{
+
+}
+
+void MainWindow::on_acSave_triggered()
+{
+
 }

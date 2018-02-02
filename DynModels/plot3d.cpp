@@ -17,6 +17,11 @@ Plot3D::Plot3D(QWidget *parent)
     p3dScatter->scene()->activeCamera()->setCameraPreset(Q3DCamera::CameraPresetFront);
 }
 
+Plot3D::~Plot3D()
+{
+    p3dScatter->deleteLater();
+}
+
 void Plot3D::clear()
 {
     pSeries->dataProxy()->removeItems(0, pSeries->dataProxy()->itemCount());

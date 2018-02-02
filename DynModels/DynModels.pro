@@ -54,7 +54,11 @@ SOURCES += \
     phaseportrait.cpp \
     commonplot.cpp \
     tabplot3d.cpp \
-    plot3d.cpp
+    plot3d.cpp \
+    tabtable.cpp \
+    tabledatamodel.cpp \
+    external/exportdialog.cpp \
+    external/dataloader.cpp
 
 HEADERS += \
     pluginhandler.h \
@@ -69,7 +73,11 @@ HEADERS += \
     phaseportrait.h \
     commonplot.h \
     tabplot3d.h \
-    plot3d.h
+    plot3d.h \
+    tabtable.h \
+    tabledatamodel.h \
+    external/exportdialog.h \
+    external/dataloader.h
 
 FORMS += \
     mainwindow.ui \
@@ -78,7 +86,9 @@ FORMS += \
     coefitem.ui \
     populationsetframe.ui \
     resultwidget.ui \
-    tabplot3d.ui
+    tabplot3d.ui \
+    tabtable.ui \
+    external/exportdialog.ui
 
 RESOURCES += \
     res.qrc

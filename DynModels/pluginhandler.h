@@ -23,7 +23,7 @@ struct Plugin
         QStringList roleNames;      // Название ролей (для обозначения на графиках)
         QString     description;    // Описание модели
         QList<Coef> coefs;          // Коэффициенты
-
+        quint8      id;         // ID плагина
     } metadata;
 };
 

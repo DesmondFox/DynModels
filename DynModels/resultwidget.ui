@@ -140,7 +140,7 @@
        <string>3D График</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="tabTable">
+     <widget class="TabTable" name="tabTable">
       <attribute name="title">
        <string>Таблица</string>
       </attribute>
@@ -171,6 +171,12 @@
    <class>TabPlot3D</class>
    <extends>QWidget</extends>
    <header>tabplot3d.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TabTable</class>
+   <extends>QWidget</extends>
+   <header>tabtable.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
