@@ -37,7 +37,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Настройки</string>
+      <string>Налаштування</string>
      </property>
      <property name="scaledContents">
       <bool>false</bool>
@@ -64,7 +64,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="labelStart">
        <property name="text">
-        <string>Начало:</string>
+        <string>Початок:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -90,7 +90,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="labelEnd">
        <property name="text">
-        <string>Конец:</string>
+        <string>Кінець:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -128,7 +128,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="labelStep">
        <property name="text">
-        <string>Шаг:</string>
+        <string>Крок:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -178,7 +178,7 @@
    <item>
     <widget class="QPushButton" name="pushSolve">
      <property name="text">
-      <string>Решить</string>
+      <string>GO</string>
      </property>
      <property name="autoRepeat">
       <bool>false</bool>

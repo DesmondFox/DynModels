@@ -38,7 +38,7 @@ void TableDataModel::setRoles(const QStringList &roles)
     if (roles.isEmpty())
         return;
     QStringList r;
-    r.append("Время");
+    r.append("Час");
     r.append(roles);
     this->setHorizontalHeaderLabels(r);
 }

@@ -39,7 +39,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Коэффициенты</string>
+      <string>Коефициєнти</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

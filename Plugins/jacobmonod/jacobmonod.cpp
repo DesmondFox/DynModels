@@ -14,8 +14,6 @@ JacobMonod::~JacobMonod()
 
 QList<Element> JacobMonod::differentiate(const DiffSettings &settings)
 {
-    Q_ASSERT(settings.startValues.size() == settings.expressions);
-
     qreal   start = settings.startTime,
             end = settings.endTime,
             h = settings.step;

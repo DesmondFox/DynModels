@@ -6,13 +6,14 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    pExportDialog(new ExportDialog(this))
+    pExportDialog(new ExportDialog(this)),
+    pResultDialog(new ResultDialog(this))
 {
     ui->setupUi(this);
     if (worker.getModelNames().isEmpty())
     {
-        QMessageBox::critical(this, tr("Ошибка"), tr("Ни один из плагинов не был загружен \n"
-                                                     "Работа прекращена"));
+        QMessageBox::critical(this, tr("Ошибка"), tr("Плагінів не виявлено \n"
+                                                     "Работа завершена"));
         return;
     }
     else
@@ -65,6 +66,10 @@ void MainWindow::slotSolve()
     auto roles = worker.getRoles(ui->integrationSettings->getModelIdx());
     ui->resultWidget->setData(solve, roles);
     pExportDialog->setData(solve, roles);
+
+    // Для задания последних значений и вывода окна
+    makeResults(roles, solve);
+
     qDebug() << "Done...";
 }
 
@@ -78,8 +83,8 @@ void MainWindow::slotMouseHoverOn2DPlot(const QPointF &point)
 
 void MainWindow::on_acExit_triggered()
 {
-    if (QMessageBox::question(this, tr("Подтверждение"),
-                              tr("Вы действительно хотите выйти?"),
+    if (QMessageBox::question(this, tr("Підтвердження"),
+                              tr("Ви дійсно бажаєте вийти?"),
                               QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
         QApplication::exit(0);
 }
@@ -97,8 +102,10 @@ void MainWindow::on_acExportTxt_triggered()
                                   ui->populationFrame->getValues());
     pExportDialog->setPlots(ui->resultWidget->getPlotPix(),
                             ui->resultWidget->getPhasePix());
+    pExportDialog->setModel(worker.getModelNames().at(ui->integrationSettings->getModelIdx()),
+                            worker.getDescription(ui->integrationSettings->getModelIdx()));
     if (pExportDialog->exec() == QDialog::Accepted)
-        pStatusBarLabel->setText("Отчет сохранен");
+        pStatusBarLabel->setText("Звіт збережено");
 }
 
 void MainWindow::on_acLoad_triggered()
@@ -110,14 +117,9 @@ void MainWindow::on_acLoad_triggered()
         return;
     if (!dataLoader.load(filename))
     {
-        QMessageBox::critical(this, tr("Ошибка"), tr("Произошла ошибка загрузки"));
+        QMessageBox::critical(this, tr("Помилка"), tr("Виникла помилка завантаження"));
         return;
     }
-
-    auto modelIndex = worker.getModelIndexByID(dataLoader.getModelID());
-    auto coefs = dataLoader.getCoefValues();
-    auto popul = dataLoader.getPopulationValues();
-
 
     ui->integrationSettings->setModelIndex(worker.getModelIndexByID(dataLoader.getModelID()));
     ui->coefs->setValues(dataLoader.getCoefValues());
@@ -135,12 +137,23 @@ void MainWindow::on_acSave_triggered()
     dataLoader.setIntegrationSettings(ui->integrationSettings->getStart(),
                                       ui->integrationSettings->getEnd(),
                                       ui->integrationSettings->getStep());
-    QString filename = QFileDialog::getSaveFileName(this, tr("Сохранение файла настроек"),
+    QString filename = QFileDialog::getSaveFileName(this, tr("Збереження даних програми"),
                                                     QDir::homePath(), tr("Dynamic Models File (*.dm)"));
     if (filename.isEmpty())
         return;
    if (dataLoader.save(filename))
-       pStatusBarLabel->setText("Данные сохранены");
+       pStatusBarLabel->setText("Дані збережені");
    else
-       QMessageBox::critical(this, tr("Ошибка"), tr("Произошла ошибка сохранения"));
+       QMessageBox::critical(this, tr("Помилка"), tr("Виникла помилка збереження"));
+}
+
+void MainWindow::makeResults(const QStringList &roles, const QList<ASolveByMethod> &solve)
+{
+    LastValues values;
+    values.eilers   = solve.at(0).elements.last().second;
+    values.modEilers= solve.at(1).elements.last().second;
+    values.RKutta   = solve.at(2).elements.last().second;
+    values.adams    = solve.at(3).elements.last().second;
+    pResultDialog->setValues(roles, values);
+    pResultDialog->exec();
 }

@@ -4,8 +4,8 @@
 
 DataLoader::DataLoader(QObject *parent)
     : QObject(parent),
-      m_start(0.0), m_end(0.0), m_step(0.0),
-      m_modelID(0)
+      m_start(0.0), m_end(0.0),
+      m_modelID(0), m_step(0.0)
 {
 
 }

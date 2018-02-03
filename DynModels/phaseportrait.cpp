@@ -47,6 +47,7 @@ QCPCurve *PhasePortrait::getCurve(const DiffMethod &method)
         return pRungeKuttaCurve;
     if (method == DiffMethod::AdamsBashforth4rdOrder)
         return pAdamsCurve;
+    return nullptr;
 }
 
 void PhasePortrait::setRoles(const QStringList &roleslist)

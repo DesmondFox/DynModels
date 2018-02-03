@@ -23,6 +23,9 @@ public:
                        const QList<qreal> &values);
     void setPlots(const QPixmap &plot,
                   const QPixmap &phase);
+    void setModel(const QString &modelName,
+                  const QString &descr);
+
 private slots:
     void on_buttons_accepted();
 
@@ -31,7 +34,6 @@ private:
     QList<ASolveByMethod> m_results;
     QStringList m_roles;
     void save(const QString &filename);
-    void savePixmap(const QPixmap &pix, const QString &filename);
     QString getStartData();
     QString getTable();
     QString getEndData();
@@ -40,6 +42,8 @@ private:
     QList<qreal> m_populValues;
     QPixmap m_phase;
     QPixmap m_plot;
+    QString m_description;
+    QString m_modelName;
 };
 
 #endif // EXPORTDIALOG_H

@@ -50,6 +50,12 @@ void ExportDialog::setPlots(const QPixmap &plot, const QPixmap &phase)
     m_phase = phase;
 }
 
+void ExportDialog::setModel(const QString &modelName, const QString &descr)
+{
+    m_description   = descr;
+    m_modelName     = modelName;
+}
+
 void ExportDialog::on_buttons_accepted()
 {
     bool textChecked = false;
@@ -123,6 +129,8 @@ void ExportDialog::save(const QString &filename)
     strm << QString("Date: %1\n").arg(QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm:ss::zzz"));
     strm << tr("===== B E G I N =====\n");
     strm << QString("Method:\t%1\n").arg(ui->cbMethods->currentText());
+    strm << QString("Model:\t%1\n").arg(m_modelName);
+    strm << QString("Model description:\t%1\n").arg(m_description);
     strm << QString("Interval: %1 - %2; Step: %3\n")
             .arg(startTime)
             .arg(endTime)
@@ -137,11 +145,6 @@ void ExportDialog::save(const QString &filename)
 
     strm << tr("===== E N D =====");
     file.close();
-}
-
-void ExportDialog::savePixmap(const QPixmap &pix, const QString &filename)
-{
-
 }
 
 QString ExportDialog::getStartData()

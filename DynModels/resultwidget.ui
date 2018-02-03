@@ -36,7 +36,7 @@
      </property>
      <widget class="QWidget" name="tab2DPlot">
       <attribute name="title">
-       <string>График</string>
+       <string>Графік</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -64,12 +64,12 @@
          </property>
          <widget class="Plot2D" name="tab2DCurves">
           <attribute name="title">
-           <string>2D график</string>
+           <string>2D графік</string>
           </attribute>
          </widget>
          <widget class="PhasePortrait" name="tabPhase">
           <attribute name="title">
-           <string>Фазовый портрет</string>
+           <string>Фазовий портрет</string>
           </attribute>
          </widget>
         </widget>
@@ -89,7 +89,7 @@
           <item row="0" column="0">
            <widget class="QCheckBox" name="cbEulers">
             <property name="text">
-             <string>Метод Эйлера</string>
+             <string>Метод Ейлера</string>
             </property>
             <property name="icon">
              <iconset resource="res.qrc">
@@ -100,7 +100,7 @@
           <item row="0" column="1">
            <widget class="QCheckBox" name="cbRungeKutta">
             <property name="text">
-             <string>Метод Рунге-Кутты 4-го порядка</string>
+             <string>Метод Рунге-Кутти 4-го порядку</string>
             </property>
             <property name="icon">
              <iconset resource="res.qrc">
@@ -111,7 +111,7 @@
           <item row="1" column="0">
            <widget class="QCheckBox" name="cbModEulers">
             <property name="text">
-             <string>Модифицированный метод Эйлера</string>
+             <string>Модіфікований метод Ейлера</string>
             </property>
             <property name="icon">
              <iconset resource="res.qrc">
@@ -122,7 +122,7 @@
           <item row="1" column="1">
            <widget class="QCheckBox" name="cbAdams">
             <property name="text">
-             <string>Метод Адамса Башфорта 4-го порядка</string>
+             <string>Метод Адамса Башфорта 4-го порядку</string>
             </property>
             <property name="icon">
              <iconset resource="res.qrc">
@@ -137,17 +137,17 @@
      </widget>
      <widget class="TabPlot3D" name="tab3DPlot">
       <attribute name="title">
-       <string>3D График</string>
+       <string>3D Графік</string>
       </attribute>
      </widget>
      <widget class="TabTable" name="tabTable">
       <attribute name="title">
-       <string>Таблица</string>
+       <string>Таблиця</string>
       </attribute>
      </widget>
      <widget class="QWidget" name="tabVisualization">
       <attribute name="title">
-       <string>Визуализация</string>
+       <string>Візуалізація</string>
       </attribute>
      </widget>
     </widget>

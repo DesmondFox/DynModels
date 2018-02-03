@@ -26,7 +26,7 @@
       <item row="0" column="0">
        <widget class="QRadioButton" name="rbEilers">
         <property name="text">
-         <string>Метод Эйлера</string>
+         <string>Метод Ейлера</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -36,21 +36,21 @@
       <item row="0" column="1">
        <widget class="QRadioButton" name="rbRungeKutta">
         <property name="text">
-         <string>Метод Рунге-Кутты 4-го порядка</string>
+         <string>Метод Рунге-Кутти 4-го порядку</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
        <widget class="QRadioButton" name="rbModEilers">
         <property name="text">
-         <string>Модифицированный метод Эйлера</string>
+         <string>Модифікований метод Ейлера</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
        <widget class="QRadioButton" name="rbAdams">
         <property name="text">
-         <string>Метод Адамса-Башфорта 4-го порядка</string>
+         <string>Метод Адамса-Башфорта 4-го порядку</string>
         </property>
        </widget>
       </item>

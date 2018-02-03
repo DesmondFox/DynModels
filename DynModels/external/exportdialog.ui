@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Экспорт</string>
+   <string>Експорт</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
@@ -32,13 +32,13 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Данные</string>
+      <string>Дані</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QCheckBox" name="cbStartData">
         <property name="text">
-         <string>Начальные данные</string>
+         <string>Початкові дані</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -48,7 +48,7 @@
       <item>
        <widget class="QCheckBox" name="cbTable">
         <property name="text">
-         <string>Таблица</string>
+         <string>Таблиця</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -58,7 +58,7 @@
       <item>
        <widget class="QCheckBox" name="cbEndData">
         <property name="text">
-         <string>Конечные данные</string>
+         <string>Кінцеві дані</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -71,20 +71,20 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Графические данные</string>
+      <string>Графічні дані</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QCheckBox" name="cbSavePlot">
         <property name="text">
-         <string>Сохранить график</string>
+         <string>Зберегти графік</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QCheckBox" name="cbSavePhase">
         <property name="text">
-         <string>Сохранить фазовый портрет</string>
+         <string>Зберегти фазовий портрет</string>
         </property>
        </widget>
       </item>

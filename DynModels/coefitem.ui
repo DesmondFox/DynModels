@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="labelCoef">
      <property name="text">
-      <string>Коэффициент</string>
+      <string>Коефіцієнт</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

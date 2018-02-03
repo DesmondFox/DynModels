@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Динамічні моделі</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -138,7 +138,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="acSave">
    <property name="text">
-    <string>Сохранить</string>
+    <string>Зберегти</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -146,7 +146,7 @@
   </action>
   <action name="acExit">
    <property name="text">
-    <string>Выход</string>
+    <string>Вихід</string>
    </property>
    <property name="shortcut">
     <string>Esc</string>
@@ -154,7 +154,7 @@
   </action>
   <action name="acExportTxt">
    <property name="text">
-    <string>Сохранить отчет</string>
+    <string>Зберегти звіт</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
@@ -162,7 +162,7 @@
   </action>
   <action name="acLoad">
    <property name="text">
-    <string>Загрузить</string>
+    <string>Завантажити</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>

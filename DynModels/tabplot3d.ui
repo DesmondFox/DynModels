@@ -47,7 +47,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Метод Рунге-Кутты 4-го порядка</string>
+         <string>Метод Рунге-Кутти 4-го порядку</string>
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
@@ -58,7 +58,7 @@
       <item row="1" column="0">
        <widget class="QRadioButton" name="cbModEulers3d">
         <property name="text">
-         <string>Модифицированный метод Эйлера</string>
+         <string>Модифкоований метод Ейлера</string>
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
@@ -72,7 +72,7 @@
          <string>Синий</string>
         </property>
         <property name="text">
-         <string>Метод Эйлера</string>
+         <string>Метод Ейлера</string>
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
@@ -86,7 +86,7 @@
       <item row="1" column="1">
        <widget class="QRadioButton" name="cbAdams3d">
         <property name="text">
-         <string>Метод Адамса-Вашфорта 4-го порядка</string>
+         <string>Метод Адамса-Вашфорта 4-го порядку</string>
         </property>
         <property name="icon">
          <iconset resource="res.qrc">

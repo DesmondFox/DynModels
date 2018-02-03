@@ -43,7 +43,6 @@ void ResultWidget::setData(const QList<ASolveByMethod> &solve, const QStringList
 
 void ResultWidget::on_cbEulers_clicked()
 {
-    qDebug() << "kek";
     checkClicked(ui->cbEulers, DiffMethod::Eilers, 0);
 }
 
@@ -67,11 +66,11 @@ void ResultWidget::slotTabWidgetIndexChanged(int index)
     if (results.isEmpty())
         return;
 
-    if (ui->tabWidget->currentIndex() == 0)
+    if (index == 0)
         this->drawGraphs();
-    if (ui->tabWidget->currentIndex() == 1)
+    if (index == 1)
         ui->tab3DPlot->drawPlot();
-    if (ui->tabWidget->currentIndex() == 2)
+    if (index == 2)
         ui->tabTable->printTable();
 }
 

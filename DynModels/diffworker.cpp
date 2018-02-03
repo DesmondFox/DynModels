@@ -60,9 +60,9 @@ QString DiffWorker::getDescription(const quint8 &modelIndex) const
 QStringList DiffWorker::getMethods() const
 {
     QStringList out = {
-        "Метод Эйлера",
-        "Модифицированный метод Эйлера",
-        "Метод Рунге-Кутты 4-го порядка",
+        "Метод Ейлера",
+        "Модифікований метод Ейлера",
+        "Метод Рунге-Кутти 4-го порядка",
         "Метод Адамса-Башфорта 4-го порядка"
     };
     return out;

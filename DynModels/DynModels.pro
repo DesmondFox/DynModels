@@ -58,7 +58,8 @@ SOURCES += \
     tabtable.cpp \
     tabledatamodel.cpp \
     external/exportdialog.cpp \
-    external/dataloader.cpp
+    external/dataloader.cpp \
+    dialogs/resultdialog.cpp
 
 HEADERS += \
     pluginhandler.h \
@@ -77,7 +78,8 @@ HEADERS += \
     tabtable.h \
     tabledatamodel.h \
     external/exportdialog.h \
-    external/dataloader.h
+    external/dataloader.h \
+    dialogs/resultdialog.h
 
 FORMS += \
     mainwindow.ui \
@@ -88,7 +90,8 @@ FORMS += \
     resultwidget.ui \
     tabplot3d.ui \
     tabtable.ui \
-    external/exportdialog.ui
+    external/exportdialog.ui \
+    dialogs/resultdialog.ui
 
 RESOURCES += \
     res.qrc

@@ -5,8 +5,8 @@ Plot2D::Plot2D(QWidget *parent) : CommonPlot(parent)
     maximalY = {0};
     prepareItems();
     setOpenGl(true);
-    xAxis->setLabel("Продолжительность, года");
-    yAxis->setLabel("Популяция, шт");
+    xAxis->setLabel("Тривалість, роки");
+    yAxis->setLabel("Популяція, шт");
     legend->setVisible(false);
     setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 }

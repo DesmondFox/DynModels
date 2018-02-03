@@ -35,7 +35,7 @@ void Plot3D::setRoles(const QStringList &roleslist)
     roles.clear();
     roles = roleslist;
     if (roles.size() == 2)
-        roles << tr("Время, год");
+        roles << tr("Час, роки");
     p3dScatter->axisX()->setTitle(roles.at(0));
     p3dScatter->axisY()->setTitle(roles.at(1));
     p3dScatter->axisZ()->setTitle(roles.at(2));

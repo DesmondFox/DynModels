@@ -2,9 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "diffworker.h"
 #include "external/exportdialog.h"
 #include "external/dataloader.h"
+#include "dialogs/resultdialog.h"
 
 class QLabel;
 namespace Ui {
@@ -26,6 +26,7 @@ private:
     QLabel *pStatusBarLabel;
     ExportDialog *pExportDialog;
     DataLoader dataLoader;
+    ResultDialog *pResultDialog;
 
 private slots:
     void slotModelChanged(quint8 modelIndex);
@@ -35,6 +36,8 @@ private slots:
     void on_acExportTxt_triggered();
     void on_acLoad_triggered();
     void on_acSave_triggered();
+    void makeResults(const QStringList &roles,
+                     const QList<ASolveByMethod> &solve);
 };
 
 #endif // MAINWINDOW_H
