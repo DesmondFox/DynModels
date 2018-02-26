@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->integrationSettings, SIGNAL(modelHasChanged(quint8)), SLOT(slotModelChanged(quint8)));
     connect(ui->integrationSettings, SIGNAL(solveSig()), SLOT(slotSolve()));
     connect(ui->resultWidget,        SIGNAL(sigMouseHoveredOn2DPlots(QPointF)), SLOT(slotMouseHoverOn2DPlot(QPointF)));
+
+
 }
 
 MainWindow::~MainWindow()
