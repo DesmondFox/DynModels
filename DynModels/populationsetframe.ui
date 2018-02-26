@@ -32,7 +32,7 @@
    <enum>QFrame::Plain</enum>
   </property>
   <layout class="QFormLayout" name="formLayout">
-   <item row="0" column="0">
+   <item row="1" column="0">
     <widget class="QLabel" name="labelField1">
      <property name="text">
       <string>Поле 1: </string>
@@ -42,7 +42,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
+   <item row="1" column="1">
     <widget class="QDoubleSpinBox" name="dsbField1">
      <property name="decimals">
       <number>1</number>
@@ -55,7 +55,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QLabel" name="labelField2">
      <property name="text">
       <string>Поле 2:</string>
@@ -65,7 +65,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="3" column="0">
     <widget class="QLabel" name="labelField3">
      <property name="text">
       <string>Поле 3:</string>
@@ -75,7 +75,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item row="5" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -88,7 +88,7 @@
      </property>
     </spacer>
    </item>
-   <item row="4" column="1">
+   <item row="5" column="1">
     <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -101,7 +101,7 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="1">
+   <item row="2" column="1">
     <widget class="QDoubleSpinBox" name="dsbField2">
      <property name="decimals">
       <number>1</number>
@@ -114,7 +114,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="3" column="1">
     <widget class="QDoubleSpinBox" name="dsbField3">
      <property name="decimals">
       <number>1</number>
@@ -124,6 +124,21 @@
      </property>
      <property name="value">
       <double>1.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Численість популяцій</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
