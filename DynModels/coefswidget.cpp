@@ -27,7 +27,10 @@ void CoefsWidget::setCoefs(const QList<Coef> &coefs)
         pItm = new QListWidgetItem(ui->listWidget);
         pItm->setSizeHint(pWgt->sizeHint());
 
-        pWgt->setLabel(itm.coefName);
+        // Обьединенное название и буквой типа
+        // Название (буква)
+        QString concatenatedName = itm.coefName+" ("+itm.letter+")";
+        pWgt->setLabel(concatenatedName);
         pWgt->setValue(itm.value);
         pWgt->setTip(itm.tip);
 

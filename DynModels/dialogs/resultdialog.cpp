@@ -30,12 +30,12 @@ void GBWidget::setValues(const QStringList &roles, const QVector<qreal> &values)
     quint8 size = roles.size();
     pRole1->setText(roles.at(0));
     pRole2->setText(roles.at(1));
-    pValue1->setText(QString::number(static_cast<int>(values.at(0))));
-    pValue2->setText(QString::number(static_cast<int>(values.at(1))));
+    pValue1->setText(QString::number(static_cast<int>(values.at(0)))+tr(" шт."));
+    pValue2->setText(QString::number(static_cast<int>(values.at(1)))+tr(" шт."));
     if (size == 3)
     {
         pRole3->setText(roles.at(2));
-        pValue3->setText(QString::number(static_cast<int>(values.at(2))));
+        pValue3->setText(QString::number(static_cast<int>(values.at(2)))+tr(" шт."));
         pRole3->setVisible(true);
         pValue3->setVisible(true);
     }
