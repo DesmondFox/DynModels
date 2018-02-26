@@ -44,6 +44,9 @@
    </item>
    <item row="1" column="1">
     <widget class="QDoubleSpinBox" name="dsbField1">
+     <property name="suffix">
+      <string> шт.</string>
+     </property>
      <property name="decimals">
       <number>1</number>
      </property>
@@ -103,6 +106,9 @@
    </item>
    <item row="2" column="1">
     <widget class="QDoubleSpinBox" name="dsbField2">
+     <property name="suffix">
+      <string> шт.</string>
+     </property>
      <property name="decimals">
       <number>1</number>
      </property>
@@ -116,6 +122,9 @@
    </item>
    <item row="3" column="1">
     <widget class="QDoubleSpinBox" name="dsbField3">
+     <property name="suffix">
+      <string> шт.</string>
+     </property>
      <property name="decimals">
       <number>1</number>
      </property>

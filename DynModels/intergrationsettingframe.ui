@@ -75,9 +75,17 @@
       <widget class="QDoubleSpinBox" name="dsbStart">
        <property name="maximumSize">
         <size>
-         <width>69</width>
+         <width>90</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="suffix">
+        <string> років</string>
        </property>
        <property name="maximum">
         <double>1000.000000000000000</double>
@@ -101,15 +109,20 @@
       <widget class="QDoubleSpinBox" name="dsbEnd">
        <property name="maximumSize">
         <size>
-         <width>69</width>
+         <width>90</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
        </property>
        <property name="prefix">
         <string/>
        </property>
        <property name="suffix">
-        <string/>
+        <string> років</string>
        </property>
        <property name="minimum">
         <double>0.100000000000000</double>
@@ -139,9 +152,17 @@
       <widget class="QDoubleSpinBox" name="dsbStep">
        <property name="maximumSize">
         <size>
-         <width>69</width>
+         <width>90</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="suffix">
+        <string> років</string>
        </property>
        <property name="decimals">
         <number>3</number>
