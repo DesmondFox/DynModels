@@ -5,6 +5,7 @@
 #include <QList>
 #include <QVector>
 #include <QDebug>
+#include <QPixmap>
 
 // Метод дифференциирования
 enum DiffMethod
@@ -45,6 +46,7 @@ class IDynModelPlugin
 {
 public:
     virtual QList<Element> differentiate(const DiffSettings &) = 0;
+    virtual QPixmap getFormulaPixmap() = 0;
 //    virtual ~IDynModelPlugin() = 0;
 };
 

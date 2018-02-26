@@ -84,3 +84,9 @@ qint8 DiffWorker::getModelIndexByID(const quint8 &modelID) const
     }
     return idx;
 }
+
+QPixmap DiffWorker::getFormulaPixmap(const quint8 &modelIndex) const
+{
+    Q_ASSERT(modelIndex < plugins.size());
+    return plugins.at(modelIndex).plugin->getFormulaPixmap();
+}

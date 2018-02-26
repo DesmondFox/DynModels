@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->integrationSettings->setModels(worker.getModelNames());
         ui->coefs->setCoefs(worker.getCoefs(ui->integrationSettings->getModelIdx()));
         ui->populationFrame->setFields(worker.getRoles(ui->integrationSettings->getModelIdx()));
-        ui->description->setText(worker.getDescription(ui->integrationSettings->getModelIdx()));
+        makeDescription();
     }
 
     pExportDialog->setMethods(worker.getMethods());
@@ -55,8 +55,9 @@ DiffSettings MainWindow::makeSettings() const
 void MainWindow::slotModelChanged(quint8 modelIndex)
 {
     ui->coefs->setCoefs(worker.getCoefs(modelIndex));
-    ui->description->setText(worker.getDescription(modelIndex));
     ui->populationFrame->setFields(worker.getRoles(modelIndex));
+    makeDescription();  // Сформировать описание модели
+
     qDebug() << "Window:" << "New model changed";
 }
 
@@ -158,4 +159,31 @@ void MainWindow::makeResults(const QStringList &roles, const QList<ASolveByMetho
     values.adams    = solve.at(3).elements.last().second;
     pResultDialog->setValues(roles, values);
     pResultDialog->exec();
+}
+
+void MainWindow::makeDescription()
+{
+    ui->description->clear();
+    // Получим индекс модели
+    quint8 idx = ui->integrationSettings->getModelIdx();
+    QString htmlText;
+    htmlText += "<center><h3>"+worker.getModelNames().at(idx)+"</h3></center><br>";
+
+    // Добавляем картинку формулы
+    QByteArray imageBA;
+    QBuffer buffer(&imageBA);
+    QImage  image = worker.getFormulaPixmap(idx).toImage();
+    image.save(&buffer, "PNG");
+    QString imgBase64 = imageBA.toBase64(QByteArray::Base64Encoding);
+    htmlText += "<img src=\"data:image/png;base64,"+imgBase64+"\" id=\"formula\"><br>";
+
+    // Добавляем обозначения коэфициентов
+    QList<Coef> coefs = worker.getCoefs(idx);
+    for (const Coef &coef : coefs)
+        htmlText += "<b>"+coef.letter+"</b> - "+coef.coefName+"<br>";
+
+    // Добавляем само описание модели
+    htmlText += "<p>"+worker.getDescription(idx)+"</p>";
+
+    ui->description->setHtml(htmlText);
 }

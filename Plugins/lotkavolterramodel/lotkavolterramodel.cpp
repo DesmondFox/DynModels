@@ -125,3 +125,9 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
 
     return out;
 }
+
+QPixmap LotkaVolterraModel::getFormulaPixmap()
+{
+    QPixmap px = QPixmap(":/formula/img/lotkavolterra.png");
+    return px;
+}

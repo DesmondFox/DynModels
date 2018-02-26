@@ -81,6 +81,7 @@ Plugin::Metadata PluginHandler::loadMetadata(const QJsonObject &metadata)
         _coef.coefName  = obj.value("Name").toString();
         _coef.tip       = obj.value("Tip").toString();
         _coef.value     = obj.value("Value").toString().toDouble();
+        _coef.letter    = obj.value("Letter").toString();
         mtd.coefs << _coef;
     }
 

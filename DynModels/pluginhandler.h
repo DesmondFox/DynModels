@@ -9,6 +9,7 @@ struct Coef
     QString coefName;   // Название коэффициента
     QString tip;        // Подсказка при наведении
     qreal   value;      // Стартовое значение
+    QString letter;     // Как выглядит в формуле
 };
 
 struct Plugin

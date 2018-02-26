@@ -19,6 +19,7 @@ public:
     // IDynModelPlugin interface
 public:
     QList<Element> differentiate(const DiffSettings &settings);
+    QPixmap getFormulaPixmap();
 };
 
 #endif // HOLLINGTANNER_H

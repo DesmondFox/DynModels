@@ -38,3 +38,6 @@ DISTFILES += lotkavolterramodel.json
 unix {
 # Позже сделаю для Юникс-подобных
 }
+
+RESOURCES += \
+    res.qrc

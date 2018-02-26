@@ -23,6 +23,7 @@ public:
     QStringList getMethods() const;
     quint8      getModelID(const quint8 &modelIndex) const;
     qint8       getModelIndexByID(const quint8 &modelID) const;
+    QPixmap     getFormulaPixmap(const quint8 &modelIndex) const;
 
     static const quint8 MethodNum = 4;
 private:

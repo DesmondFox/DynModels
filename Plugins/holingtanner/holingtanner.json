@@ -13,32 +13,38 @@
             {
                 "Name" : "Коеф. r",
                 "Tip" : "Коеф 1",
-                "Value" : "1"
+                "Value" : "1",
+                "Letter" : "r"
             },
             {
                 "Name" : "Коеф. s",
                 "Tip" : "Коеф 2",
-                "Value" : "0.25"
+                "Value" : "0.25",
+                "Letter" : "s"
             },
             {
                 "Name" : "Коеф. K",
                 "Tip" : "Коэф 3",
-                "Value" : "7"
+                "Value" : "7",
+                "Letter" : "K"
             },
             {
                 "Name" : "Коеф. D",
                 "Tip" : "Коэф 4",
-                "Value" : "1"
+                "Value" : "1",
+                "Letter" : "D"
             },
             {
                 "Name" : "Коеф. J",
                 "Tip" : "Коэф 5",
-                "Value" : "0.5"
+                "Value" : "0.5",
+                "Letter" : "J"
             },
             {
                 "Name" : "Коеф. w",
                 "Tip" : "Коэф 6",
-                "Value" : "1.5"
+                "Value" : "1.5",
+                "Letter" : "w"
             }
         ],
         "RoleNames" : [

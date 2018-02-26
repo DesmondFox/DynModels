@@ -126,3 +126,8 @@ QList<Element> HollingTanner::differentiate(const DiffSettings &settings)
     }
     return out;
 }
+
+QPixmap HollingTanner::getFormulaPixmap()
+{
+    return QPixmap(":/formula/img/formula.png");
+}
