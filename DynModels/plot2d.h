@@ -17,7 +17,8 @@ public:
 
 private:
     static const quint8 SeriesNum = 3;
-    static const quint8 ColorGrad = 100;
+    static const quint8 ColorBegin = 255;
+    static const quint8 ColorGrad = 80;
     static const quint8 MarginPerc= 5;
     // Графики для методов
     std::array<QCPGraph*, SeriesNum> m_EilersGraphs;

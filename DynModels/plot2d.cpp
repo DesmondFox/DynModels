@@ -105,10 +105,10 @@ void Plot2D::colorsToGraphs()
     };
     for (int i = 0; i < SeriesNum; i++)
     {
-        m_EilersGraphs.at(i)->setPen(QPen(QBrush(QColor(0, 0, 255-i*ColorGrad, 240-i*ColorGrad)), LineWidth, styleSequence.at(i)));
-        m_ModEilersGraphs.at(i)->setPen(QPen(QBrush(QColor(255-i*ColorGrad, 0, 0, 240-i*ColorGrad)), LineWidth, styleSequence.at(i)));
-        m_RKuttaGraphs.at(i)->setPen(QPen(QBrush(QColor(0, 255-i*ColorGrad, 0, 240-i*ColorGrad)), LineWidth, styleSequence.at(i)));
-        m_AdamsGraphs.at(i)->setPen(QPen(QBrush(QColor(255-i*ColorGrad, 0, 255-i*ColorGrad, 240-i*ColorGrad)), LineWidth, styleSequence.at(i)));
+        m_EilersGraphs.at(i)->setPen(QPen(QBrush(QColor(0, 0, ColorBegin-i*ColorGrad, 240-i*ColorGrad)), LineWidth, styleSequence.at(i)));
+        m_ModEilersGraphs.at(i)->setPen(QPen(QBrush(QColor(ColorBegin-i*ColorGrad, 0, 0, 240-i*ColorGrad)), LineWidth, styleSequence.at(i)));
+        m_RKuttaGraphs.at(i)->setPen(QPen(QBrush(QColor(0, ColorBegin-i*ColorGrad, 0, 240-i*ColorGrad)), LineWidth, styleSequence.at(i)));
+        m_AdamsGraphs.at(i)->setPen(QPen(QBrush(QColor(ColorBegin-i*ColorGrad, 0, ColorBegin-i*ColorGrad, 240-i*ColorGrad)), LineWidth, styleSequence.at(i)));
     }
 }
 
