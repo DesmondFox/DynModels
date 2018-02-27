@@ -155,3 +155,8 @@ QList<Element> Volterra2Victims::differentiate(const DiffSettings &settings)
     }
     return out;
 }
+
+QPixmap Volterra2Victims::getFormulaPixmap()
+{
+    return QPixmap(":/formula/img/lvolterra2victims.png");
+}

@@ -125,3 +125,8 @@ QList<Element> JacobMonod::differentiate(const DiffSettings &settings)
     }
     return out;
 }
+
+QPixmap JacobMonod::getFormulaPixmap()
+{
+    return QPixmap(":/formula/img/jacobmonod.png");
+}

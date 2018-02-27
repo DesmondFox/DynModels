@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/formula">
+        <file>img/lvolterra2victims.png</file>
+    </qresource>
+</RCC>

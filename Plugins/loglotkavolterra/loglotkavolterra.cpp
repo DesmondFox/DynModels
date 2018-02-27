@@ -127,3 +127,8 @@ QList<Element> LogLotkaVolterra::differentiate(const DiffSettings &settings)
     return out;
 }
 
+QPixmap LogLotkaVolterra::getFormulaPixmap()
+{
+    return QPixmap(":/formula/img/loglvolterra.png");
+}
+

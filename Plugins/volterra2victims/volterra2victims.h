@@ -18,6 +18,10 @@ public:
     // IDynModelPlugin interface
 public:
     QList<Element> differentiate(const DiffSettings &settings);
+
+    // IDynModelPlugin interface
+public:
+    QPixmap getFormulaPixmap();
 };
 
 #endif // VOLTERRA2VICTIMS_H
