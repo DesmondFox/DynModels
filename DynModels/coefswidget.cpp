@@ -25,7 +25,11 @@ void CoefsWidget::setCoefs(const QList<Coef> &coefs)
     {
         pWgt = new CoefItem();
         pItm = new QListWidgetItem(ui->listWidget);
-        pItm->setSizeHint(pWgt->sizeHint());
+
+        QSize sizeHint = pWgt->sizeHint();
+//        sizeHint.setWidth(sizeHint.width() + 20);
+
+        pItm->setSizeHint(sizeHint);
 
         // Обьединенное название и буквой типа
         // Название (буква)
