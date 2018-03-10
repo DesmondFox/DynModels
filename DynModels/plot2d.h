@@ -2,6 +2,7 @@
 #define PLOT2D_H
 
 #include "commonplot.h"
+#include <array>
 
 class Plot2D : public CommonPlot
 {
