@@ -4,7 +4,6 @@ Plot2D::Plot2D(QWidget *parent) : CommonPlot(parent)
 {
     maximalY = {0};
     prepareItems();
-    setOpenGl(true);
     xAxis->setLabel("Тривалість, роки");
     yAxis->setLabel("Популяція, шт");
     legend->setVisible(false);

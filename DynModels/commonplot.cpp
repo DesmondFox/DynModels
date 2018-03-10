@@ -2,7 +2,7 @@
 
 CommonPlot::CommonPlot(QWidget *parent) : QCustomPlot(parent)
 {
-    setOpenGl(true);
+//    setOpenGl(true);
     setMouseTracking(true);
 }
 

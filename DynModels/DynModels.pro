@@ -27,7 +27,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Tell the qcustomplot header that it will be used as library:
-DEFINES += QCUSTOMPLOT_USE_LIBRARY QCUSTOMPLOT_USE_OPENGL
+DEFINES += QCUSTOMPLOT_USE_LIBRARY
+#DEFINES += QCUSTOMPLOT_USE_OPENGL
 
 # Link with debug version of qcustomplot if compiling in debug mode, else with release library:
 CONFIG(debug, release|debug) {
