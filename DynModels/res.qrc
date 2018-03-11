@@ -5,4 +5,7 @@
         <file>icons/magenta.png</file>
         <file>icons/red.png</file>
     </qresource>
+    <qresource prefix="/splashscreen">
+        <file>assets/splash.png</file>
+    </qresource>
 </RCC>
