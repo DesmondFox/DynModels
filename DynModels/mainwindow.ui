@@ -93,7 +93,7 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>204</width>
+          <width>240</width>
           <height>16777215</height>
          </size>
         </property>
@@ -109,7 +109,7 @@
        <widget class="CoefsWidget" name="coefs" native="true">
         <property name="maximumSize">
          <size>
-          <width>203</width>
+          <width>240</width>
           <height>16777215</height>
          </size>
         </property>
