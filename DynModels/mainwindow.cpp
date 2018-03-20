@@ -29,6 +29,10 @@ MainWindow::MainWindow(QWidget *parent) :
     pStatusBarLabel = new QLabel(tr("Готово"), ui->statusbar);
     ui->statusbar->addWidget(pStatusBarLabel);
 
+    // Установка полной информации о моделях
+    ui->resultWidget->setDescriprionAboutModel(buildLightDescription(),
+                                               worker.getDescription(ui->integrationSettings->getModelIdx()));
+
     connect(ui->integrationSettings, SIGNAL(modelHasChanged(quint8)), SLOT(slotModelChanged(quint8)));
     connect(ui->integrationSettings, SIGNAL(solveSig()), SLOT(slotSolve()));
     connect(ui->resultWidget,        SIGNAL(sigMouseHoveredOn2DPlots(QPointF)), SLOT(slotMouseHoverOn2DPlot(QPointF)));
@@ -57,7 +61,8 @@ void MainWindow::slotModelChanged(quint8 modelIndex)
     ui->coefs->setCoefs(worker.getCoefs(modelIndex));
     ui->populationFrame->setFields(worker.getRoles(modelIndex));
     makeDescription();  // Сформировать описание модели
-
+    ui->resultWidget->setDescriprionAboutModel(buildLightDescription(),
+                                               worker.getDescription(ui->integrationSettings->getModelIdx()));
     qDebug() << "Window:" << "New model changed";
 }
 
@@ -69,7 +74,6 @@ void MainWindow::slotSolve()
     auto roles = worker.getRoles(ui->integrationSettings->getModelIdx());
     ui->resultWidget->setData(solve, roles);
     pExportDialog->setData(solve, roles);
-
     // Для задания последних значений и вывода окна
     makeResults(roles, solve);
 
@@ -164,6 +168,11 @@ void MainWindow::makeResults(const QStringList &roles, const QList<ASolveByMetho
 void MainWindow::makeDescription()
 {
     ui->description->clear();
+    ui->description->setHtml(buildLightDescription());
+}
+
+QString MainWindow::buildLightDescription()
+{
     // Получим индекс модели
     quint8 idx = ui->integrationSettings->getModelIdx();
     QString htmlText;
@@ -181,9 +190,5 @@ void MainWindow::makeDescription()
     QList<Coef> coefs = worker.getCoefs(idx);
     for (const Coef &coef : coefs)
         htmlText += "<b>"+coef.letter+"</b> - "+coef.coefName+"<br>";
-
-    // Добавляем само описание модели
-    htmlText += "<p>"+worker.getDescription(idx)+"</p>";
-
-    ui->description->setHtml(htmlText);
+    return htmlText;
 }

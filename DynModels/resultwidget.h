@@ -18,6 +18,7 @@ public:
     explicit ResultWidget(QWidget *parent = 0);
     ~ResultWidget();
     void setData(const QList<ASolveByMethod> &solve, const QStringList &roleslist);
+    void setDescriprionAboutModel(const QString &mainData, const QString &fulldesc);
     void drawGraphs();
     QPixmap getPlotPix() const;
     QPixmap getPhasePix() const;

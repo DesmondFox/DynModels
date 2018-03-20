@@ -39,7 +39,7 @@ private slots:
     void makeResults(const QStringList &roles,
                      const QList<ASolveByMethod> &solve);
     void makeDescription();
-
+    QString buildLightDescription();
 };
 
 #endif // MAINWINDOW_H

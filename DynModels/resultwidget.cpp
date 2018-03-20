@@ -41,6 +41,16 @@ void ResultWidget::setData(const QList<ASolveByMethod> &solve, const QStringList
         ui->tabTable->printTable();
 }
 
+void ResultWidget::setDescriprionAboutModel(const QString &mainData, const QString &fulldesc)
+{
+    // Добавление полного описания модели
+    QString descr;
+    descr += mainData;
+    descr += "<hr>";
+    descr += fulldesc;
+    ui->aboutModel->setHtml(descr);
+}
+
 void ResultWidget::on_cbEulers_clicked()
 {
     checkClicked(ui->cbEulers, DiffMethod::Eilers, 0);
