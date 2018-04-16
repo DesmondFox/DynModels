@@ -36,8 +36,8 @@ QList<Element> HollingTanner::differentiate(const DiffSettings &settings)
             prev_y  = settings.startValues.at(1);
 
     // Новые x и y
-    qreal   x,
-            y;
+    qreal   x = 0.0,
+            y = 0.0;
     quint32 iteration = 1; // итерация
     // Первый элемент добавляем в выход
     out << QPair<qreal, QVector<qreal>>(0.0, {prev_x, prev_y});
