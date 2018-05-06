@@ -36,12 +36,12 @@ QList<Element> LogLotkaVolterra::differentiate(const DiffSettings &settings)
 //    qreal   y0  = settings.startValues(1);
 
     // Новые x и y
-    qreal   x,
-            y;
+    qreal   x = 0.0,
+            y = 0.0;
 
     quint32 iteration = 1; // итерация
     // Первый элемент добавляем в выход
-    out << QPair<qreal, QVector<qreal>>(0.0, {prev_x, prev_y});
+    out << QPair<qreal, QVector<qreal>>(start, {prev_x, prev_y});
     // Просчет для каждого шага
     for (qreal t = start+h; t <= end; t += h)
     {

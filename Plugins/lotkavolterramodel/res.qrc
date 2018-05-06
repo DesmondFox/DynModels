@@ -2,4 +2,7 @@
     <qresource prefix="/formula">
         <file>img/lotkavolterra.png</file>
     </qresource>
+    <qresource prefix="/assets">
+        <file>img/phase.gif</file>
+    </qresource>
 </RCC>

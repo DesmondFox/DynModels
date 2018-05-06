@@ -1,5 +1,5 @@
 #include "hollingtanner.h"
-
+#include <QDebug>
 
 HollingTanner::HollingTanner(QObject *parent) :
     QObject(parent)
@@ -40,7 +40,7 @@ QList<Element> HollingTanner::differentiate(const DiffSettings &settings)
             y = 0.0;
     quint32 iteration = 1; // итерация
     // Первый элемент добавляем в выход
-    out << QPair<qreal, QVector<qreal>>(0.0, {prev_x, prev_y});
+    out << QPair<qreal, QVector<qreal>>(start, {prev_x, prev_y});
     // Просчет для каждого шага
     for (qreal t = start+h; t <= end; t += h)
     {

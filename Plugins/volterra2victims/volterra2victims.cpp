@@ -44,7 +44,7 @@ QList<Element> Volterra2Victims::differentiate(const DiffSettings &settings)
 
     quint32 iteration = 1; // итерация
     // Первый элемент добавляем в выход
-    out << QPair<qreal, QVector<qreal>>(0.0, {prev_x1, prev_x2, prev_y});
+    out << QPair<qreal, QVector<qreal>>(start, {prev_x1, prev_x2, prev_y});
     // Просчет для каждого шага
     for (qreal t = start+h; t <= end; t += h)
     {
