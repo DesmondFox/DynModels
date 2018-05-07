@@ -27,15 +27,15 @@ void GBWidget::setValues(const QStringList &roles, const QVector<qreal> &values)
     if (roles.size() != values.size())
         return;
 
-    quint8 size = roles.size();
+    int size = roles.size();
     pRole1->setText(roles.at(0));
     pRole2->setText(roles.at(1));
-    pValue1->setText(QString::number(static_cast<int>(values.at(0)))+tr(" шт."));
-    pValue2->setText(QString::number(static_cast<int>(values.at(1)))+tr(" шт."));
+    pValue1->setText(QString("%1 <font color=green>(%2)</font> шт.").arg(static_cast<int>(values.at(0))).arg(values.at(0)));
+    pValue2->setText(QString("%1 <font color=green>(%2)</font> шт.").arg(static_cast<int>(values.at(1))).arg(values.at(1)));
     if (size == 3)
     {
         pRole3->setText(roles.at(2));
-        pValue3->setText(QString::number(static_cast<int>(values.at(2)))+tr(" шт."));
+        pValue3->setText(QString("%1 <font color=green>(%2)</font> шт.").arg(static_cast<int>(values.at(2))).arg(values.at(2)));
         pRole3->setVisible(true);
         pValue3->setVisible(true);
     }
