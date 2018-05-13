@@ -25,6 +25,7 @@ public:
                   const QPixmap &phase);
     void setModel(const QString &modelName,
                   const QString &descr);
+    bool hasData() const;
 
 private slots:
     void on_buttons_accepted();
@@ -44,6 +45,7 @@ private:
     QPixmap m_plot;
     QString m_description;
     QString m_modelName;
+
 };
 
 #endif // EXPORTDIALOG_H

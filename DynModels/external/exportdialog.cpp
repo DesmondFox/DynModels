@@ -56,6 +56,11 @@ void ExportDialog::setModel(const QString &modelName, const QString &descr)
     m_modelName     = modelName;
 }
 
+bool ExportDialog::hasData() const
+{
+    return !m_results.isEmpty();
+}
+
 void ExportDialog::on_buttons_accepted()
 {
     bool textChecked = false;
