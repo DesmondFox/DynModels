@@ -95,6 +95,6 @@ void PhasePortrait::draw(const DiffMethod &method, const QList<Element> &data)
     }
     curve->data().data()->set(convertedData, true);
     axisRect()->setupFullAxesBox();
-    rescaleAxes();
+    rescaleAxes(true);
     replot();
 }
