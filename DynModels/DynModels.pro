@@ -9,9 +9,6 @@ QT       += core gui charts datavisualization
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 
-#QMAKE_CXXFLAGS_DEBUG += -pg -O2 -g
-#QMAKE_LFLAGS_DEBUG += -pg
-
 TARGET = DynModels
 TEMPLATE = app
 
@@ -96,3 +93,5 @@ FORMS += \
 
 RESOURCES += \
     res.qrc
+
+win32:RC_ICONS += assets/icon.ico

@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pResultDialog(new ResultDialog(this))
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon("qrc:/icons/assets/icon.ico"));
     if (worker.getModelNames().isEmpty())
     {
         QMessageBox::critical(this, tr("Ошибка"), tr("Плагінів не виявлено \n"
@@ -98,10 +99,17 @@ void MainWindow::on_acExit_triggered()
 
 void MainWindow::on_acExportTxt_triggered()
 {
+    if (!pExportDialog->hasData())
+    {
+        QMessageBox::critical(this, tr("Помилка"), tr("Немає даних для збереження"));
+        return;
+    }
+
     QStringList coefList;
     auto raw = worker.getCoefs(ui->integrationSettings->getModelIdx());
     for (const Coef &coef : raw)
         coefList << coef.coefName;
+
 
     pExportDialog->setCoefs(coefList, ui->coefs->getValues());
 

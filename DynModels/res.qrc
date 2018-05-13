@@ -4,6 +4,7 @@
         <file>icons/blue.png</file>
         <file>icons/magenta.png</file>
         <file>icons/red.png</file>
+        <file>assets/icon.ico</file>
     </qresource>
     <qresource prefix="/splashscreen">
         <file>assets/splash.png</file>
