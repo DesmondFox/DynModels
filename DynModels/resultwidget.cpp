@@ -26,12 +26,13 @@ void ResultWidget::setData(const QList<ASolveByMethod> &solve, const QStringList
     ui->tabTable->setData(solve, roleslist);
 
     // Количество элементов
-    quint8 size = solve.first().elements.first().second.size();
-    if (size == 2)
-        ui->tabPhase->setEnabled(true);
-    if (size == 3)
-        ui->tabPhase->setEnabled(false);
-
+    if (getSizeOfData() == 2)
+        ui->tabPhase->setVisible(true);
+    if (getSizeOfData() == 3)
+    {
+        ui->tabPhase->setVisible(false);
+        ui->tabPhase->clearPlot();
+    }
 
     if (ui->tabWidget->currentIndex() == 0)
         this->drawGraphs();
@@ -91,10 +92,9 @@ void ResultWidget::drawGraphs()
     if (!roles.isEmpty())
     {
         ui->tab2DCurves->setRoles(roles);
-        if (results.first().elements.first().second.size() == 2)
+        if (getSizeOfData() == 2)
             ui->tabPhase->setRoles(roles);
         ui->tab2DCurves->legend->setVisible(true);
-
     }
     bool hasChecked = false;
     if (ui->cbEulers->isChecked())
@@ -142,10 +142,7 @@ void ResultWidget::draw2DPlots(const quint8 &index, const DiffMethod &method)
     if (getSizeOfData() == 2)
     {
         ui->tabPhase->draw(method, results.at(index).elements);
-        ui->tabPhase->setEnabled(true);
     }
-    else
-        ui->tabPhase->setEnabled(false);
 }
 
 void ResultWidget::checkClicked(const QCheckBox *cb, const DiffMethod &method, const quint8 &index)
@@ -163,7 +160,7 @@ void ResultWidget::checkClicked(const QCheckBox *cb, const DiffMethod &method, c
     }
 }
 
-quint8 ResultWidget::getSizeOfData() const
+int ResultWidget::getSizeOfData() const
 {
     if (results.isEmpty())
         return -1;
