@@ -38,7 +38,6 @@ private slots:
     void on_acSave_triggered();
     void makeResults(const QStringList &roles,
                      const QList<ASolveByMethod> &solve);
-    void makeDescription();
     QString buildLightDescription();
 
     // QWidget interface

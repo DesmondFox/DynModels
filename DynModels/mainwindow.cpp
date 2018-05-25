@@ -23,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->integrationSettings->setModels(worker.getModelNames());
         ui->coefs->setCoefs(worker.getCoefs(ui->integrationSettings->getModelIdx()));
         ui->populationFrame->setFields(worker.getRoles(ui->integrationSettings->getModelIdx()));
-        makeDescription();
     }
 
     pExportDialog->setMethods(worker.getMethods());
@@ -62,7 +61,6 @@ void MainWindow::slotModelChanged(quint8 modelIndex)
 {
     ui->coefs->setCoefs(worker.getCoefs(modelIndex));
     ui->populationFrame->setFields(worker.getRoles(modelIndex));
-    makeDescription();  // Сформировать описание модели
     ui->resultWidget->setDescriprionAboutModel(buildLightDescription(),
                                                worker.getDescription(ui->integrationSettings->getModelIdx()));
     qDebug() << "Window:" << "New model changed";
@@ -172,12 +170,6 @@ void MainWindow::makeResults(const QStringList &roles, const QList<ASolveByMetho
     values.adams    = solve.at(3).elements.last().second;
     pResultDialog->setValues(roles, values);
     pResultDialog->exec();
-}
-
-void MainWindow::makeDescription()
-{
-    ui->description->clear();
-    ui->description->setHtml(buildLightDescription());
 }
 
 QString MainWindow::buildLightDescription()

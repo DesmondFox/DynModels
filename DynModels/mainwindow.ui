@@ -59,21 +59,12 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="description">
-          <property name="minimumSize">
-           <size>
-            <width>151</width>
-            <height>0</height>
-           </size>
+         <widget class="QFrame" name="frame">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>200</height>
-           </size>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
          </widget>
         </item>
@@ -125,7 +116,7 @@
      <x>0</x>
      <y>0</y>
      <width>822</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
