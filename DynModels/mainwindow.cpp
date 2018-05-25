@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QLabel>
+#include "dialogs/welcomedialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -199,4 +200,10 @@ QString MainWindow::buildLightDescription()
     for (const Coef &coef : coefs)
         htmlText += "<b>"+coef.letter+"</b> - "+coef.coefName+"<br>";
     return htmlText;
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+    WelcomeDialog welcome;
+    welcome.exec();
 }

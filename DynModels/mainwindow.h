@@ -40,6 +40,10 @@ private slots:
                      const QList<ASolveByMethod> &solve);
     void makeDescription();
     QString buildLightDescription();
+
+    // QWidget interface
+protected:
+    void showEvent(QShowEvent *event);
 };
 
 #endif // MAINWINDOW_H

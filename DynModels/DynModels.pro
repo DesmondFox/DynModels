@@ -57,7 +57,8 @@ SOURCES += \
     tabledatamodel.cpp \
     external/exportdialog.cpp \
     external/dataloader.cpp \
-    dialogs/resultdialog.cpp
+    dialogs/resultdialog.cpp \
+    dialogs/welcomedialog.cpp
 
 HEADERS += \
     pluginhandler.h \
@@ -77,7 +78,8 @@ HEADERS += \
     tabledatamodel.h \
     external/exportdialog.h \
     external/dataloader.h \
-    dialogs/resultdialog.h
+    dialogs/resultdialog.h \
+    dialogs/welcomedialog.h
 
 FORMS += \
     mainwindow.ui \
@@ -89,7 +91,8 @@ FORMS += \
     tabplot3d.ui \
     tabtable.ui \
     external/exportdialog.ui \
-    dialogs/resultdialog.ui
+    dialogs/resultdialog.ui \
+    dialogs/welcomedialog.ui
 
 RESOURCES += \
     res.qrc
