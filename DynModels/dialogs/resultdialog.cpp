@@ -18,6 +18,8 @@ GBWidget::GBWidget(QWidget *parent)
     pLay->addWidget(pValue1, 0, 1);
     pLay->addWidget(pValue2, 1, 1);
     pLay->addWidget(pValue3, 2, 1);
+    pLay->setSpacing(1);
+    pLay->setMargin(1);
     pRole1->setText("dsds");
     setLayout(pLay);
 }
