@@ -5,7 +5,7 @@ Plot2D::Plot2D(QWidget *parent) : CommonPlot(parent)
     maximalY = {0};
     prepareItems();
     xAxis->setLabel("Тривалість, роки");
-    yAxis->setLabel("Популяція, шт");
+    yAxis->setLabel("Популяція, особин");
     legend->setVisible(false);
     setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 }
