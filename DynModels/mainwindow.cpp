@@ -197,5 +197,11 @@ QString MainWindow::buildLightDescription()
 void MainWindow::showEvent(QShowEvent *event)
 {
     WelcomeDialog welcome;
-    welcome.exec();
+    static bool showed = false;
+
+    if (!showed)
+    {
+        welcome.exec();
+        showed = true;
+    }
 }
