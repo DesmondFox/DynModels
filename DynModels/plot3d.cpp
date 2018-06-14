@@ -13,7 +13,7 @@ Plot3D::Plot3D(QWidget *parent)
     pSeries = new QScatter3DSeries(this);
     p3dScatter->addSeries(pSeries);
     pSeries->setMesh(QScatter3DSeries::MeshMinimal);
-    p3dScatter->setShadowQuality(Q3DScatter::ShadowQualityLow);
+    p3dScatter->setShadowQuality(Q3DScatter::ShadowQualityNone);
     p3dScatter->scene()->activeCamera()->setCameraPreset(Q3DCamera::CameraPresetFront);
 }
 
