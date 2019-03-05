@@ -19,6 +19,7 @@ public:
 
 private:
     Ui::TabStability *ui;
+    void findEquilibriumPoints(IDynModelPlugin *plugin);
 };
 
 #endif // TABSTABILITY_H

@@ -20,11 +20,19 @@ void TabStability::setVis(bool visible)
     ui->lblEquil->setVisible(visible);
 }
 
-void TabStability::setPlugin(IDynModelPlugin *plugin)
+void TabStability::findEquilibriumPoints(IDynModelPlugin *plugin)
 {
+    QString str = ui->lblEquil->text();
     QStringList dotList;
 
     for (QPair<qreal, qreal> point : plugin->getEquilibriumPoints())
-        dotList << QString("(%1, %2)").arg(point.first).arg(point.second);
-    ui->lblEquil->setText(QString("Точки равновесия: <b>%1</b>").arg(dotList.join(", ")));
+        dotList << QString("(%1, %2)")
+                   .arg(point.first)
+                   .arg(point.second);
+    ui->lblEquil->setText(QString(str).arg(dotList.join(", ")));
+}
+
+void TabStability::setPlugin(IDynModelPlugin *plugin)
+{
+    findEquilibriumPoints(plugin);
 }
