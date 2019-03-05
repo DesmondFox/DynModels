@@ -31,8 +31,20 @@
    </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
+     </property>
+     <property name="documentMode">
+      <bool>false</bool>
+     </property>
+     <property name="tabsClosable">
+      <bool>false</bool>
+     </property>
+     <property name="tabBarAutoHide">
+      <bool>false</bool>
      </property>
      <widget class="QWidget" name="tab2DPlot">
       <attribute name="title">
@@ -145,6 +157,14 @@
        <string>Таблиця</string>
       </attribute>
      </widget>
+     <widget class="TabStability" name="tabStability">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <attribute name="title">
+       <string>Устойчивость</string>
+      </attribute>
+     </widget>
      <widget class="QWidget" name="tabAboutModel">
       <attribute name="title">
        <string>Про модель</string>
@@ -198,6 +218,12 @@
    <class>TabTable</class>
    <extends>QWidget</extends>
    <header>tabtable.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TabStability</class>
+   <extends>QWidget</extends>
+   <header>tabstability.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

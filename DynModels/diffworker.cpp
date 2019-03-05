@@ -4,6 +4,7 @@ DiffWorker::DiffWorker()
 {
     PluginHandler hdlr;
     plugins = hdlr.loadPlugins();
+    selectedPlugin = nullptr;
 }
 
 DiffWorker::~DiffWorker()
@@ -11,7 +12,7 @@ DiffWorker::~DiffWorker()
     /// WARNING: Удалить плагины
 }
 
-QList<ASolveByMethod> DiffWorker::solve(DiffSettings settings, const quint8 &modelIndex) const
+QList<ASolveByMethod> DiffWorker::solve(DiffSettings settings, const quint8 &modelIndex)
 {
     Q_ASSERT(modelIndex < plugins.size());
     QList<ASolveByMethod> out;
@@ -20,12 +21,13 @@ QList<ASolveByMethod> DiffWorker::solve(DiffSettings settings, const quint8 &mod
                                    DiffMethod::RungeKutta4thOrder,
                                    DiffMethod::AdamsBashforth4rdOrder};
 
+    selectedPlugin = plugins[modelIndex].plugin;
     ASolveByMethod solve;
     for (const DiffMethod &currentMethod : sequence)
     {
         settings.diffMethod  = currentMethod;
         solve.method    = currentMethod;
-        solve.elements  = plugins.at(modelIndex).plugin->differentiate(settings);
+        solve.elements  = selectedPlugin->differentiate(settings);
         out << solve;
     }
     return out;
@@ -89,4 +91,9 @@ QPixmap DiffWorker::getFormulaPixmap(const quint8 &modelIndex) const
 {
     Q_ASSERT(modelIndex < plugins.size());
     return plugins.at(modelIndex).plugin->getFormulaPixmap();
+}
+
+IDynModelPlugin *DiffWorker::getSelectedPlugin()
+{
+    return selectedPlugin;
 }

@@ -33,6 +33,10 @@ struct DiffSettings
     // Коэффициенты системы
     // Задаются в соответствии с метаданными
     QList<qreal>    data;
+
+    // 05.03.2019
+    // Данные готовы к вычислению
+    bool finalized = false;
 };
 
 // Алиас для указателя на функцию интегрирования. Для удобства
@@ -47,6 +51,7 @@ class IDynModelPlugin
 public:
     virtual QList<Element> differentiate(const DiffSettings &) = 0;
     virtual QPixmap getFormulaPixmap() = 0;
+    virtual QList<QPair<qreal, qreal>> getEquilibriumPoints() = 0;
 //    virtual ~IDynModelPlugin() = 0;
 };
 

@@ -72,7 +72,7 @@ void MainWindow::slotSolve()
 
     auto solve = worker.solve(makeSettings(), ui->integrationSettings->getModelIdx());
     auto roles = worker.getRoles(ui->integrationSettings->getModelIdx());
-    ui->resultWidget->setData(solve, roles);
+    ui->resultWidget->setData(solve, roles, worker.getSelectedPlugin());
     pExportDialog->setData(solve, roles);
     // Для задания последних значений и вывода окна
     makeResults(roles, solve);

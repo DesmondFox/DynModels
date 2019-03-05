@@ -58,7 +58,8 @@ SOURCES += \
     external/exportdialog.cpp \
     external/dataloader.cpp \
     dialogs/resultdialog.cpp \
-    dialogs/welcomedialog.cpp
+    dialogs/welcomedialog.cpp \
+    tabstability.cpp
 
 HEADERS += \
     pluginhandler.h \
@@ -79,7 +80,8 @@ HEADERS += \
     external/exportdialog.h \
     external/dataloader.h \
     dialogs/resultdialog.h \
-    dialogs/welcomedialog.h
+    dialogs/welcomedialog.h \
+    tabstability.h
 
 FORMS += \
     mainwindow.ui \
@@ -92,7 +94,8 @@ FORMS += \
     tabtable.ui \
     external/exportdialog.ui \
     dialogs/resultdialog.ui \
-    dialogs/welcomedialog.ui
+    dialogs/welcomedialog.ui \
+    tabstability.ui
 
 RESOURCES += \
     res.qrc

@@ -131,3 +131,12 @@ QPixmap LotkaVolterraModel::getFormulaPixmap()
     QPixmap px = QPixmap(":/formula/img/lotkavolterra.png");
     return px;
 }
+
+QList<QPair<qreal, qreal> > LotkaVolterraModel::getEquilibriumPoints()
+{
+    QList<QPair<qreal, qreal>> out;
+    out << qMakePair(0.0f, 0.0f);
+    out << qMakePair(gamma/delta, alpha/beta);
+    return out;
+}
+

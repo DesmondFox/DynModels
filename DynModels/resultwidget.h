@@ -17,7 +17,9 @@ class ResultWidget : public QWidget
 public:
     explicit ResultWidget(QWidget *parent = 0);
     ~ResultWidget();
-    void setData(const QList<ASolveByMethod> &solve, const QStringList &roleslist);
+    void setData(const QList<ASolveByMethod> &solve,
+                 const QStringList &roleslist,
+                 IDynModelPlugin *plugin);
     void setDescriprionAboutModel(const QString &mainData, const QString &fulldesc);
     void drawGraphs();
     QPixmap getPlotPix() const;

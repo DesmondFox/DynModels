@@ -10,6 +10,7 @@ ResultWidget::ResultWidget(QWidget *parent) :
     connect(ui->tab2DCurves,    SIGNAL(mouseHover(QPointF)), this, SIGNAL(sigMouseHoveredOn2DPlots(QPointF)));
     connect(ui->tabPhase,       SIGNAL(mouseHover(QPointF)), this, SIGNAL(sigMouseHoveredOn2DPlots(QPointF)));
     connect(ui->tabWidget,      SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetIndexChanged(int)));
+    ui->tabStability->setVis(false);
 }
 
 ResultWidget::~ResultWidget()
@@ -17,7 +18,9 @@ ResultWidget::~ResultWidget()
     delete ui;
 }
 
-void ResultWidget::setData(const QList<ASolveByMethod> &solve, const QStringList &roleslist)
+void ResultWidget::setData(const QList<ASolveByMethod> &solve,
+                           const QStringList &roleslist,
+                           IDynModelPlugin *plugin)
 {
     results.clear();
     results = solve;
@@ -33,6 +36,10 @@ void ResultWidget::setData(const QList<ASolveByMethod> &solve, const QStringList
         ui->tabPhase->setVisible(false);
         ui->tabPhase->clearPlot();
     }
+
+    ui->tabStability->setVis(true);
+    ui->tabStability->setPlugin(plugin);
+
 
     if (ui->tabWidget->currentIndex() == 0)
         this->drawGraphs();
