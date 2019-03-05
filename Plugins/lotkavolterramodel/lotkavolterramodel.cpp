@@ -23,10 +23,10 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
     DiffMethod  method = settings.diffMethod;
 
     // Коэффицициенты
-    qreal   a   = settings.data.at(0),  // a - Коэф. рожд. жертв
-            b   = settings.data.at(1),  // b - Коэф. убийства ж-вы х-ками
-            c   = settings.data.at(2),  // c - Коэф. рожд. х-ков
-            d   = settings.data.at(3);  // d - Коэф. убыли х-ков
+    alpha   = settings.data.at(0),  // Коэф. рожд. жертв
+    beta    = settings.data.at(1),  // Коэф. убийства ж-вы х-ками
+    delta   = settings.data.at(2),  // Коэф. рожд. х-ков
+    gamma   = settings.data.at(3);  // Коэф. убыли х-ков
 
     // Количества жертв и хищников
     qreal   prev_x  = settings.startValues.at(0),
@@ -45,20 +45,20 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
         Element element;
         if (method == DiffMethod::Eilers)
         {
-            x = prev_x + h*((a-b*prev_y)*prev_x);
-            y = prev_y + h*((-d+c*prev_x)*prev_y);
+            x = prev_x + h*((alpha-beta*prev_y)*prev_x);
+            y = prev_y + h*((-gamma+delta*prev_x)*prev_y);
         }
         if (method == DiffMethod::ModifiedEilers)
         {
             double K[2];
             // X
-            K[0] = h * ((a-b*prev_y)*prev_x);
-            K[1] = h * ((a-b*(prev_y+K[0]))*(prev_x+K[0]));
+            K[0] = h * ((alpha-beta*prev_y)*prev_x);
+            K[1] = h * ((alpha-beta*(prev_y+K[0]))*(prev_x+K[0]));
             x = prev_x + (K[0]+K[1])/2.0;
 
             // Y
-            K[0] = h * ((-d+c*prev_x)*prev_y);
-            K[1] = h * ((-d+c*(prev_x+K[0]))*(prev_y+K[0]));
+            K[0] = h * ((-gamma+delta*prev_x)*prev_y);
+            K[1] = h * ((-gamma+delta*(prev_x+K[0]))*(prev_y+K[0]));
             y = prev_y + (K[0]+K[1])/2.0;
         }
         // Для нахождения первых 5-х [0;5) точек для Адамса
@@ -70,17 +70,17 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
             {
                 qreal K[4];
                 // X
-                K[0] = h* ((a-b*prev_y)*prev_x);
-                K[1] = h* ((a-b*(prev_y + K[0]/2.0))  * (prev_x + K[0]/2.0));
-                K[2] = h* ((a-b*(prev_y + K[1]/2.0))  * (prev_x + K[1]/2.0));
-                K[3] = h* ((a-b*(prev_y + K[2]))    * (prev_x + K[2]));
+                K[0] = h* ((alpha-beta*prev_y)*prev_x);
+                K[1] = h* ((alpha-beta*(prev_y + K[0]/2.0))  * (prev_x + K[0]/2.0));
+                K[2] = h* ((alpha-beta*(prev_y + K[1]/2.0))  * (prev_x + K[1]/2.0));
+                K[3] = h* ((alpha-beta*(prev_y + K[2]))    * (prev_x + K[2]));
                 x = prev_x + ((K[0] + 2.0*K[1] + 2.0*K[2] + K[3]))/6.0;
 
                 // Y
-                K[0] = h* ((-d + c*prev_x)*prev_y);
-                K[1] = h* ((-d + c*(prev_x + K[0]/2.0))  * (prev_y + K[0]/2.0));
-                K[2] = h* ((-d + c*(prev_x + K[1]/2.0))  * (prev_y + K[1]/2.0));
-                K[3] = h* ((-d + c*(prev_x + K[2]))  * (prev_y + K[2]));
+                K[0] = h* ((-gamma + delta*prev_x)*prev_y);
+                K[1] = h* ((-gamma + delta*(prev_x + K[0]/2.0))  * (prev_y + K[0]/2.0));
+                K[2] = h* ((-gamma + delta*(prev_x + K[1]/2.0))  * (prev_y + K[1]/2.0));
+                K[3] = h* ((-gamma + delta*(prev_x + K[2]))  * (prev_y + K[2]));
                 y   = prev_y + ((K[0] + 2.0*K[1] + 2.0*K[2] + K[3]))/6.0;
             }
         }
@@ -100,17 +100,17 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
                         y_2 = out.at(iteration-2).second.at(1), // Yn-2
                         y_1 = out.at(iteration-1).second.at(1); // Yn-1
 
-                x   = x_1 +h*((1901.0/720.0*(a-b*y_1)*x_1) -
-                              (1387.0/360.0*(a-b*y_2)*x_2) +
-                              (109.0/30.0*(a-b*y_3)*x_3)   -
-                              (637.0/360.0*(a-b*y_4)*x_4)  +
-                              (251.0/720.0*(a-b*y_5)*x_5));
+                x   = x_1 +h*((1901.0/720.0*(alpha-beta*y_1)*x_1) -
+                              (1387.0/360.0*(alpha-beta*y_2)*x_2) +
+                              (109.0/30.0*(alpha-beta*y_3)*x_3)   -
+                              (637.0/360.0*(alpha-beta*y_4)*x_4)  +
+                              (251.0/720.0*(alpha-beta*y_5)*x_5));
 
-                y   = y_1 +h*((1901.0/720.0*(-d*y_1+c*x_1*y_1)) -
-                              (1387.0/360.0*(-d*y_2+c*x_2*y_2)) +
-                              (109.0/30.0*(-d*y_3+c*x_3*y_3)) -
-                              (637.0/360.0*(-d*y_4+c*x_4*y_4)) +
-                              (251.0/720.0*(-d*y_5+c*x_5*y_5)));
+                y   = y_1 +h*((1901.0/720.0*(-gamma*y_1+delta*x_1*y_1)) -
+                              (1387.0/360.0*(-gamma*y_2+delta*x_2*y_2)) +
+                              (109.0/30.0*(-gamma*y_3+delta*x_3*y_3)) -
+                              (637.0/360.0*(-gamma*y_4+delta*x_4*y_4)) +
+                              (251.0/720.0*(-gamma*y_5+delta*x_5*y_5)));
             }
         }
         prev_x = x;

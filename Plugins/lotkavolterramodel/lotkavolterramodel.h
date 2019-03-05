@@ -18,6 +18,12 @@ public:
 public:
     QList<Element> differentiate(const DiffSettings &settings);
     QPixmap getFormulaPixmap();
+
+private:
+    qreal alpha;    // Коэф. рожд. жертв
+    qreal beta;     // Коэф. убийства ж-вы х-ками
+    qreal gamma;    // Коэф. убыли х-ков
+    qreal delta;    // Коэф. рожд. х-ков
 };
 
 #endif // LOTKAVOLTERRAMODEL_H
