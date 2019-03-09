@@ -24,11 +24,14 @@ private:
     qreal beta;     // Коэф. убийства ж-вы х-ками
     qreal gamma;    // Коэф. убыли х-ков
     qreal delta;    // Коэф. рожд. х-ков
-
+    Point startValues;
 
     // IDynModelPlugin interface
 public:
-    QList<QPair<qreal, qreal> > getEquilibriumPoints();
+    QList<Point> getEquilibriumPoints();
+    QList<Point> getEigenvalues();
+    QString getEigenvaluesSolve();
+    Point getStartValues();
 };
 
 #endif // LOTKAVOLTERRAMODEL_H

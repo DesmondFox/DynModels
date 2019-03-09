@@ -1,5 +1,6 @@
 #include "lotkavolterramodel.h"
 #include <QDebug>
+#include <cmath>
 
 LotkaVolterraModel::LotkaVolterraModel(QObject *parent) :
     QObject(parent)
@@ -18,6 +19,9 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
             end = settings.endTime,
             h = settings.step;
     QList<Element> out;
+
+    // Записать стартовые значения
+    startValues = settings.startValues;
 
     // Метод интегрирования
     DiffMethod  method = settings.diffMethod;
@@ -132,11 +136,33 @@ QPixmap LotkaVolterraModel::getFormulaPixmap()
     return px;
 }
 
-QList<QPair<qreal, qreal> > LotkaVolterraModel::getEquilibriumPoints()
+QList<Point> LotkaVolterraModel::getEquilibriumPoints()
 {
-    QList<QPair<qreal, qreal>> out;
-    out << qMakePair(0.0f, 0.0f);
-    out << qMakePair(gamma/delta, alpha/beta);
+    QList<Point> out;
+    out.append(QList<qreal>()
+               << 0.0f << 0.0f);
+    out.append(QList<qreal>()
+               << gamma/delta << alpha/beta);
     return out;
+}
+
+QList<Point> LotkaVolterraModel::getEigenvalues()
+{
+    QList<Point> out;
+    out.append(QList<qreal>()
+               << alpha << -gamma);
+    out.append(QList<qreal>() <<
+               sqrt(alpha*gamma) << -sqrt(alpha*gamma));
+    return out;
+}
+
+QString LotkaVolterraModel::getEigenvaluesSolve()
+{
+    return QString("\/Тут показывается процесс поисказ значений. Это вбито в саму модель\/");
+}
+
+Point LotkaVolterraModel::getStartValues()
+{
+    return startValues;
 }
 

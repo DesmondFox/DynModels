@@ -46,13 +46,23 @@ struct DiffSettings
 // Один элемент из выхода. Равное числу популяции в данный момент t
 typedef QPair<qreal, QVector<qreal>> Element;
 
+// Point
+typedef QList<qreal> Point;
+
 class IDynModelPlugin
 {
 public:
     virtual QList<Element> differentiate(const DiffSettings &) = 0;
     virtual QPixmap getFormulaPixmap() = 0;
-    virtual QList<QPair<qreal, qreal>> getEquilibriumPoints() = 0;
+    // Точки равновесия
+    virtual QList<Point> getEquilibriumPoints() = 0;
+    // Собственные значения
+    virtual QList<Point> getEigenvalues() = 0;
 //    virtual ~IDynModelPlugin() = 0;
+    // Показать как находятся собств. значения
+    virtual QString getEigenvaluesSolve() = 0;
+    // Начальные значения популяции
+    virtual Point getStartValues() = 0;
 };
 
 #define IDynModelPlugin_iid "com.github.desmondfox.idynmodelplugin"
