@@ -59,7 +59,8 @@ SOURCES += \
     external/dataloader.cpp \
     dialogs/resultdialog.cpp \
     dialogs/welcomedialog.cpp \
-    tabstability.cpp
+    tabstability.cpp \
+    utils/stabilityutil.cpp
 
 HEADERS += \
     pluginhandler.h \
@@ -81,7 +82,8 @@ HEADERS += \
     external/dataloader.h \
     dialogs/resultdialog.h \
     dialogs/welcomedialog.h \
-    tabstability.h
+    tabstability.h \
+    utils/stabilityutil.h
 
 FORMS += \
     mainwindow.ui \

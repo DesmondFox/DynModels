@@ -3,9 +3,20 @@
 
 #include <QWidget>
 #include "../plugins/idynmodelplugin.h"
+struct StablePointForPhasePortrait
+{
+    StablePointForPhasePortrait(Point pn, QString descr) {
+        this->point = pn; this->description = descr;
+    }
+    Point point;
+    QString description;
+};
+
+
 namespace Ui {
 class TabStability;
 }
+
 
 class TabStability : public QWidget
 {
@@ -16,11 +27,14 @@ public:
     ~TabStability();
     void setVis(bool visible);
     void setPlugin(IDynModelPlugin *plugin);
+    QList<StablePointForPhasePortrait> getEquilibriumPoints() const;
 
 private:
     Ui::TabStability *ui;
     void findEquilibriumPoints(IDynModelPlugin *plugin);
-    void findEigenpoints(IDynModelPlugin *plugin);
+    void findEigenpoints(IDynModelPlugin *plugin, QStringList pointList);
+    QList<Point> equilPoints;
+    QList<Point> eigenPoints;
 };
 
 #endif // TABSTABILITY_H

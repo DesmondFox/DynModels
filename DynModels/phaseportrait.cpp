@@ -14,6 +14,7 @@ void PhasePortrait::prepareItems()
         pModEilersCurve = new QCPCurve(xAxis, yAxis);
         pRungeKuttaCurve= new QCPCurve(xAxis, yAxis);
         pAdamsCurve     = new QCPCurve(xAxis, yAxis);
+
     }
     catch(std::bad_alloc &ex)
     {
@@ -35,6 +36,7 @@ void PhasePortrait::prepareItems()
     pModEilersCurve->setVisible(false);
     pRungeKuttaCurve->setVisible(false);
     pAdamsCurve->setVisible(false);
+    pointsGraph = nullptr;
 }
 
 QCPCurve *PhasePortrait::getCurve(const DiffMethod &method)
@@ -77,6 +79,46 @@ void PhasePortrait::clearPlot()
     pModEilersCurve->data().data()->clear();
     pRungeKuttaCurve->data().data()->clear();
     pAdamsCurve->data().data()->clear();
+    pointsGraph->data().data()->clear();
+    for (QCPItemText *text : textItems) {
+        this->removeItem(text);
+    }
+    textItems.clear();
+}
+
+void PhasePortrait::setEquilibriumPoints(QList<StablePointForPhasePortrait> points)
+{
+    Q_ASSERT(points.front().point.size() == 2);
+
+    equilPoints = points;
+
+    if (pointsGraph != nullptr) {
+        pointsGraph->data().data()->clear();
+        for (QCPItemText *text : textItems) {
+            this->removeItem(text);
+        }
+        textItems.clear();
+    }
+
+    pointsGraph = this->addGraph(this->xAxis, this->yAxis);
+//    QVector<qreal> x; QVec
+    pointsGraph->setPen(QPen(QColor(Qt::black)));
+    pointsGraph->setBrush(QBrush(QColor(Qt::black)));
+    pointsGraph->setLineStyle(QCPGraph::lsNone);
+    pointsGraph->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle,
+                                                 QColor(Qt::black),
+                                                 QColor(Qt::black), 8));
+    for (StablePointForPhasePortrait p : points) {
+        pointsGraph->addData(p.point.at(0), p.point.at(1));
+        QCPItemText *text = new QCPItemText(this);
+        text->setClipToAxisRect(true);
+        text->setPositionAlignment(Qt::AlignTop|Qt::AlignHCenter);
+        text->position->setAxes(xAxis, yAxis);
+        text->position->setCoords(p.point.at(0), p.point.at(1));
+        text->setFont(QFont(font().family(), 12));
+        text->setText(p.description);
+        textItems << text;
+    }
 }
 
 void PhasePortrait::draw(const DiffMethod &method, const QList<Element> &data)

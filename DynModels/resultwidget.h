@@ -35,6 +35,7 @@ private:
     Ui::ResultWidget        *ui;
     QList<ASolveByMethod>   results;
     QStringList roles;
+    QList<StablePointForPhasePortrait> stablePoints;
     void checkClicked(const QCheckBox *cb, const DiffMethod &method, const quint8 &index);
     int  getSizeOfData() const;
     void draw2DPlots(const quint8 &index, const DiffMethod &method);

@@ -40,7 +40,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QDoubleSpinBox" name="dsbCoef"/>
+    <widget class="QDoubleSpinBox" name="dsbCoef">
+     <property name="minimum">
+      <double>-99.000000000000000</double>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

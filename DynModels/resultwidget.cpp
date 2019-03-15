@@ -39,7 +39,7 @@ void ResultWidget::setData(const QList<ASolveByMethod> &solve,
 
     ui->tabStability->setVis(true);
     ui->tabStability->setPlugin(plugin);
-
+    stablePoints = ui->tabStability->getEquilibriumPoints();
 
     if (ui->tabWidget->currentIndex() == 0)
         this->drawGraphs();
@@ -96,6 +96,8 @@ void ResultWidget::drawGraphs()
 {
     Q_ASSERT(results.size() == DiffWorker::MethodNum);
     ui->tab2DCurves->clearPlot();
+    ui->tabPhase->setEquilibriumPoints(stablePoints);
+
     if (!roles.isEmpty())
     {
         ui->tab2DCurves->setRoles(roles);
