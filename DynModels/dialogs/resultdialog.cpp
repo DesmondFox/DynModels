@@ -31,9 +31,19 @@ void GBWidget::setValues(const QStringList &roles, const QVector<qreal> &values)
 
     int size = roles.size();
     pRole1->setText(roles.at(0));
-    pRole2->setText(roles.at(1));
     pValue1->setText(QString("%1 <font color=green>(%2)</font> особин").arg(QString::number(values.at(0), 'f', 0)).arg(values.at(0)));
-    pValue2->setText(QString("%1 <font color=green>(%2)</font> особин").arg(QString::number(values.at(1), 'f', 0)).arg(values.at(1)));
+
+    if (size >= 2) {
+        pRole2->setText(roles.at(1));
+        pValue2->setText(QString("%1 <font color=green>(%2)</font> особин").arg(QString::number(values.at(1), 'f', 0)).arg(values.at(1)));
+        pRole2->setVisible(true);
+        pValue2->setVisible(true);
+
+    } else {
+        pRole2->setVisible(false);
+        pValue2->setVisible(false);
+    }
+
     if (size == 3)
     {
         pRole3->setText(roles.at(2));

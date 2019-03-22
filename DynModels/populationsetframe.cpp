@@ -15,18 +15,31 @@ PopulationSetFrame::~PopulationSetFrame()
 
 void PopulationSetFrame::setFields(const QStringList &roles)
 {
-    Q_ASSERT(roles.size() > 1 && roles.size() <= 3);
+    Q_ASSERT(roles.size() >= 1 && roles.size() <= 3);
 
     ui->labelField1->setText(roles.at(0));
-    ui->labelField2->setText(roles.at(1));
+
     if (roles.size() == 3)
     {
+        ui->labelField2->setText(roles.at(1));
         ui->labelField3->setText(roles.at(2));
         ui->labelField3->setHidden(false);
         ui->dsbField3->setHidden(false);
+        ui->labelField2->setHidden(false);
+        ui->dsbField2->setHidden(false);
     }
     if (roles.size() == 2)
     {
+        ui->labelField2->setText(roles.at(1));
+        ui->labelField3->setHidden(true);
+        ui->dsbField3->setHidden(true);
+        ui->labelField2->setHidden(false);
+        ui->dsbField2->setHidden(false);
+    }
+    if (roles.size() == 1)
+    {
+        ui->labelField2->setHidden(true);
+        ui->dsbField2->setHidden(true);
         ui->labelField3->setHidden(true);
         ui->dsbField3->setHidden(true);
     }
@@ -36,8 +49,9 @@ QList<qreal> PopulationSetFrame::getValues() const
 {
     QList<qreal> out;
 
-    out << ui->dsbField1->value()
-        << ui->dsbField2->value();
+    out << ui->dsbField1->value();
+    if (!ui->dsbField2->isHidden())
+        out << ui->dsbField2->value();
     if (!ui->dsbField3->isHidden())
         out << ui->dsbField3->value();
 
@@ -47,7 +61,8 @@ QList<qreal> PopulationSetFrame::getValues() const
 void PopulationSetFrame::setValues(const QList<qreal> &values)
 {
     ui->dsbField1->setValue(values.at(0));
-    ui->dsbField2->setValue(values.at(1));
+    if (values.size() >= 2)
+        ui->dsbField2->setValue(values.at(1));
     if (values.size() == 3)
         ui->dsbField3->setValue(values.at(2));
 }

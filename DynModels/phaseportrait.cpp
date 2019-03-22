@@ -119,7 +119,6 @@ void PhasePortrait::clearPlot()
     pModEilersCurve->data().data()->clear();
     pRungeKuttaCurve->data().data()->clear();
     pAdamsCurve->data().data()->clear();
-    pointsGraph->data().data()->clear();
     for (QCPItemText *text : textItems) {
         this->removeItem(text);
     }

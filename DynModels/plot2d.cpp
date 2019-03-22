@@ -17,7 +17,8 @@ void Plot2D::draw(const DiffMethod &method, const QList<Element> &data)
 
     quint8 seriesCount = data.first().second.size();
     series.at(0)->setVisible(true);
-    series.at(1)->setVisible(true);
+    if (seriesCount >= 2)
+        series.at(1)->setVisible(true);
     if (seriesCount == 3)
         series.at(2)->setVisible(true);
 
