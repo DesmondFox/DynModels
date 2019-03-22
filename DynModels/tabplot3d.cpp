@@ -21,7 +21,13 @@ void TabPlot3D::setData(const QList<ASolveByMethod> &solve, const QStringList &r
 
 void TabPlot3D::drawPlot()
 {
+    bool enabled = results.front().elements.front().second.size() != 1;
+    ui->plot3d->setEnabled(enabled);
+    ui->groupBox->setEnabled(enabled);
     ui->plot3d->clear();
+    if (!enabled)
+        return;
+
     ui->plot3d->setRoles(roles);
     if (ui->cbEulers3d->isChecked())
         ui->plot3d->draw(results.at(0).elements, Qt::blue);
