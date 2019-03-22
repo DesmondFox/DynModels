@@ -127,6 +127,7 @@ void PhasePortrait::clearPlot()
 
 void PhasePortrait::setEquilibriumPoints(QList<StablePointForPhasePortrait> points)
 {
+    int dbg_size = points.front().point.size();
     Q_ASSERT(points.front().point.size() == 2);
 
     equilPoints = points;
