@@ -1,0 +1,29 @@
+{
+    "Keys" : [],
+    "ID" : "2",
+    "ModelName": "Модель Ферхюльста",
+    "Expressions": 1,
+    "Description" : "<p align=justify> TODO.</p>",
+    "Data": {
+        "InputAttributes" : [
+            "Кількість жертв"
+        ],
+        "Coefs": [
+            {
+                "Name" : "Коеф. r",
+                "Tip" : "Коеф 1",
+                "Value" : "2.0",
+                "Letter" : "r"
+            },
+            {
+                "Name" : "Коеф. K",
+                "Tip" : "Коеф 2",
+                "Value" : "0.02",
+                "Letter" : "K"
+            }
+        ],
+        "RoleNames" : [
+            "Населення"
+        ]
+    }
+}
