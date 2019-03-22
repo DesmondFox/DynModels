@@ -25,8 +25,16 @@ void ResultWidget::setData(const QList<ASolveByMethod> &solve,
     results.clear();
     results = solve;
     roles   = roleslist;
-    ui->tab3DPlot->setData(solve, roleslist);
+
+
+    if (getSizeOfData() == 1) {
+        ui->tabPhase->setVisible(false);
+        ui->tabPhase->clearPlot();
+    }
     ui->tabTable->setData(solve, roleslist);
+    ui->tab3DPlot->setData(solve, roleslist);
+
+
 
     // Количество элементов
     if (getSizeOfData() == 2)
@@ -96,7 +104,8 @@ void ResultWidget::drawGraphs()
 {
     Q_ASSERT(results.size() == DiffWorker::MethodNum);
     ui->tab2DCurves->clearPlot();
-    ui->tabPhase->setEquilibriumPoints(stablePoints);
+    if (getSizeOfData() != 1)
+        ui->tabPhase->setEquilibriumPoints(stablePoints);
 
     if (!roles.isEmpty())
     {
