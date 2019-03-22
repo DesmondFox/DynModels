@@ -43,9 +43,7 @@ void TabStability::findEquilibriumPoints(IDynModelPlugin *plugin)
 
 void TabStability::findEigenpoints(IDynModelPlugin *plugin, QStringList pointList)
 {
-    equilPoints.clear();
-    for (auto stabpoint : plugin->getEquilibriumPoints())
-        equilPoints << stabpoint.point;
+    equilPoints = plugin->getEquilibriumPoints();
     eigenPoints = plugin->getEigenvalues();
 
     QStringList lines;
@@ -75,9 +73,8 @@ QList<StablePointForPhasePortrait> TabStability::getEquilibriumPoints() const
     for (int i = 0; i < eigenPoints.size(); i++) {
         /// TODO: Добавить для 3 точек
         if (equilPoints.size() == 2)
-            out << StablePointForPhasePortrait(equilPoints.at(i),
-                                               StabilityUtil::resolveLambda(eigenPoints[i].at(0),
-                                                                            eigenPoints[i].at(1)));
+            out << StablePointForPhasePortrait(equilPoints.at(i).point,
+                                               equilPoints.at(i).formula);
     }
     return out;
 }
