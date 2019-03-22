@@ -34,7 +34,7 @@ private:
     void findEquilibriumPoints(IDynModelPlugin *plugin);
     void findEigenpoints(IDynModelPlugin *plugin, QStringList pointList);
     QList<Point> equilPoints;
-    QList<Point> eigenPoints;
+    QList<PointComplex> eigenPoints;
 };
 
 #endif // TABSTABILITY_H

@@ -52,6 +52,46 @@ QCPCurve *PhasePortrait::getCurve(const DiffMethod &method)
     return nullptr;
 }
 
+void PhasePortrait::drawArrows(const QList<Element> &data)
+{
+    qDebug() << "Drawing arrows at phase portrait";
+    qDebug() << "Received" << data.size() << "items";
+    int size = data.size();
+
+    for (QCPAbstractItem *item : arrows)
+        this->removeItem(item);
+    arrows.clear();
+
+    int step = 2;
+    if (size < 2)
+        return;
+    if (size > 2 && size < 50)
+        step = 2;
+    if (size > 50 && size < 100)
+        step = 10;
+
+    if (size > 100 && size < 400)
+        step = 20;
+    if (size > 400 && size < 1000)
+        step = 60;
+    if (size > 1000)
+        step = 100;
+    if (size > 5000)
+        step = 400;
+
+//     step = size / 10;
+
+    for (int i = 0; i < data.size() - 5; i+= step) {
+        QCPItemLine *arrow = new QCPItemLine(this);
+        arrow->start->setCoords(data[i].second.at(0),
+                                data[i].second.at(1));
+        arrow->end->setCoords(data[i+2].second.at(0),
+                                data[i+2].second.at(1));
+        arrow->setHead(QCPLineEnding::esSpikeArrow);
+        arrows << arrow;
+    }
+}
+
 void PhasePortrait::setRoles(const QStringList &roleslist)
 {
     Q_ASSERT(roleslist.size() == 2);
@@ -101,7 +141,6 @@ void PhasePortrait::setEquilibriumPoints(QList<StablePointForPhasePortrait> poin
     }
 
     pointsGraph = this->addGraph(this->xAxis, this->yAxis);
-//    QVector<qreal> x; QVec
     pointsGraph->setPen(QPen(QColor(Qt::black)));
     pointsGraph->setBrush(QBrush(QColor(Qt::black)));
     pointsGraph->setLineStyle(QCPGraph::lsNone);
@@ -136,6 +175,9 @@ void PhasePortrait::draw(const DiffMethod &method, const QList<Element> &data)
             convertedData << QCPCurveData(el.first, x, y);
     }
     curve->data().data()->set(convertedData, true);
+
+    drawArrows(data);
+
     axisRect()->setupFullAxesBox();
     rescaleAxes(true);
     replot();

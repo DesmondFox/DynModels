@@ -28,9 +28,9 @@ QList<Element> LotkaVolterraModel::differentiate(const DiffSettings &settings)
 
     // Коэффицициенты
     alpha   = settings.data.at(0),  // Коэф. рожд. жертв
-    beta    = settings.data.at(1),  // Коэф. убийства ж-вы х-ками
-    delta   = settings.data.at(2),  // Коэф. рожд. х-ков
-    gamma   = settings.data.at(3);  // Коэф. убыли х-ков
+            beta    = settings.data.at(1),  // Коэф. убийства ж-вы х-ками
+            delta   = settings.data.at(2),  // Коэф. рожд. х-ков
+            gamma   = settings.data.at(3);  // Коэф. убыли х-ков
 
     // Количества жертв и хищников
     qreal   prev_x  = settings.startValues.at(0),
@@ -136,29 +136,43 @@ QPixmap LotkaVolterraModel::getFormulaPixmap()
     return px;
 }
 
-QList<Point> LotkaVolterraModel::getEquilibriumPoints()
+QList<StabilityPoint> LotkaVolterraModel::getEquilibriumPoints()
 {
-    QList<Point> out;
-    out.append(QList<qreal>()
-               << 0.0f << 0.0f);
-    out.append(QList<qreal>()
-               << gamma/delta << alpha/beta);
+    QList<StabilityPoint> out;
+
+    StabilityPoint p1;
+    p1.point = QList<qreal>()
+            << 0.0 << 0.0;
+    p1.formula = "[0, 0]";
+
+    StabilityPoint p2;
+    p2.point = QList<qreal>()
+            << gamma/delta << alpha/beta;
+    p2.formula = "[gamma/delta, alpha/beta]";
+    out << p1 << p2;
     return out;
 }
 
-QList<Point> LotkaVolterraModel::getEigenvalues()
+QList<PointComplex> LotkaVolterraModel::getEigenvalues()
 {
-    QList<Point> out;
-    out.append(QList<qreal>()
-               << alpha << -gamma);
-    out.append(QList<qreal>() <<
-               sqrt(alpha*gamma) << -sqrt(alpha*gamma));
-    return out;
+    QList<PointComplex> list;
+    PointComplex one;
+    one.append(QList<Complex>()
+               << Complex(0, alpha)
+               << Complex(0, -gamma));
+
+    PointComplex two;
+    two << Complex(0, sqrt(alpha*gamma));
+    two << Complex(0, -sqrt(alpha*gamma));
+
+    list << one
+         << two;
+    return list;
 }
 
 QString LotkaVolterraModel::getEigenvaluesSolve()
 {
-    return QString("\/Тут показывается процесс поисказ значений. Это вбито в саму модель\/");
+    return QString("Тут показывается процесс поисказ значений. Это вбито в саму модель");
 }
 
 Point LotkaVolterraModel::getStartValues()

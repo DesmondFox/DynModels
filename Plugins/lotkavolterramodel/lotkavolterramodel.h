@@ -28,8 +28,8 @@ private:
 
     // IDynModelPlugin interface
 public:
-    QList<Point> getEquilibriumPoints();
-    QList<Point> getEigenvalues();
+    QList<StabilityPoint> getEquilibriumPoints();
+    QList<PointComplex> getEigenvalues();
     QString getEigenvaluesSolve();
     Point getStartValues();
 };

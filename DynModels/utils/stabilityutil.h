@@ -2,6 +2,7 @@
 #define STABILITYUTIL_H
 
 #include <QString>
+#include "tabstability.h"
 
 class StabilityUtil
 {
@@ -9,7 +10,7 @@ private:
     StabilityUtil();
 
 public:
-    static QString resolveLambda(const qreal lam1, const qreal lam2);
+    static QString resolveLambda(const Complex l1, const Complex l2);
 };
 
 #endif // STABILITYUTIL_H

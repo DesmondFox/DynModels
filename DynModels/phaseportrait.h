@@ -29,6 +29,9 @@ private:
     QList<StablePointForPhasePortrait> equilPoints;
     void drawEquilibriumPoints();
     QList<QCPItemText*> textItems;
+    QList<QCPItemLine*> arrows;
+
+    void drawArrows(const QList<Element> &data);
 };
 
 

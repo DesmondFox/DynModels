@@ -5,8 +5,13 @@ StabilityUtil::StabilityUtil()
 
 }
 
-QString StabilityUtil::resolveLambda(const qreal lam1, const qreal lam2)
+QString StabilityUtil::resolveLambda(const Complex l1, const Complex l2)
 {
+    qreal lam1 = l1.lambda;
+    qreal lam2 = l2.lambda;
+    qreal alp1 = l1.alpha;
+    qreal alp2 = l2.alpha;
+
     if ((lam1 < lam2) && (lam2 < 0.0f))
         return "Устойчивый несобственный узел";
     if (qFuzzyCompare(lam1, lam2) && (lam2 < 0.0f))
@@ -17,6 +22,9 @@ QString StabilityUtil::resolveLambda(const qreal lam1, const qreal lam2)
         return "Неустойчивый узел или фокус";
     if ((lam1 > lam2) && (lam2 > 0.0f))
         return "Неустойчивый несобственный узел";
-    // TODO: Остальные уловия
-    return "TODO";
+    if (alp1 < 0)
+        return "Устойчивый фокус";
+    if (alp2 > 0)
+        return "Неустойчивый фокус";
+    return "Уст. или неуст. центр или фокус";
 }

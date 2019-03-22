@@ -49,15 +49,31 @@ typedef QPair<qreal, QVector<qreal>> Element;
 // Point
 typedef QList<qreal> Point;
 
+struct StabilityPoint {
+    Point point;
+    QString formula;
+};
+
+struct Complex
+{
+    Complex(qreal a, qreal l)
+    {alpha = a; lambda = l; }
+    qreal alpha;
+    qreal lambda;
+};
+
+typedef QList<Complex> PointComplex;
+
+
 class IDynModelPlugin
 {
 public:
     virtual QList<Element> differentiate(const DiffSettings &) = 0;
     virtual QPixmap getFormulaPixmap() = 0;
     // Точки равновесия
-    virtual QList<Point> getEquilibriumPoints() = 0;
+    virtual QList<StabilityPoint> getEquilibriumPoints() = 0;
     // Собственные значения
-    virtual QList<Point> getEigenvalues() = 0;
+    virtual QList<PointComplex> getEigenvalues() = 0;
 //    virtual ~IDynModelPlugin() = 0;
     // Показать как находятся собств. значения
     virtual QString getEigenvaluesSolve() = 0;

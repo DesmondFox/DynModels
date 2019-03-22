@@ -27,11 +27,11 @@ void TabStability::setVis(bool visible)
 void TabStability::findEquilibriumPoints(IDynModelPlugin *plugin)
 {
     QStringList line;
-    for (Point point : plugin->getEquilibriumPoints())
+    for (StabilityPoint point : plugin->getEquilibriumPoints())
     {
         QString tmp = "(";
         QStringList vallist;
-        for (qreal val : point)
+        for (qreal val : point.point)
             vallist << QString::number(val);
         tmp += vallist.join("; ");
         tmp += ")";
@@ -43,23 +43,25 @@ void TabStability::findEquilibriumPoints(IDynModelPlugin *plugin)
 
 void TabStability::findEigenpoints(IDynModelPlugin *plugin, QStringList pointList)
 {
-    equilPoints = plugin->getEquilibriumPoints();
+    equilPoints.clear();
+    for (auto stabpoint : plugin->getEquilibriumPoints())
+        equilPoints << stabpoint.point;
     eigenPoints = plugin->getEigenvalues();
 
     QStringList lines;
     for (int i = 0; i < equilPoints.size(); i++) {
 
         QStringList pn;
-        Point eigenPoint = eigenPoints.at(i);
-        for (int j = 0; j < eigenPoint.size(); j++)
-            pn.append(QString::number(eigenPoint.at(j)));
+        PointComplex ePt = eigenPoints.at(i);
+        for (int j = 0; j < ePt.size(); j++)
+            pn.append(QString::number(ePt.at(j).lambda));
 
         /// TODO: Добавить для 3 точек
-        if (eigenPoint.size() == 2)
-            lines.append(QString("%1 - <b>%2</b> ->&emsp;<font color=green>%3</font>")
+        if (ePt.size() == 2)
+            lines.append(QString("%1 - <b>%2</b> -> <font color=green>%3</font>")
                          .arg(pointList.at(i))
                          .arg("["+pn.join("; ")+"]")
-                         .arg(StabilityUtil::resolveLambda(eigenPoint.at(0), eigenPoint.at(1))));
+                         .arg(StabilityUtil::resolveLambda(ePt.at(0), ePt.at(1))));
 
 
     }
@@ -70,13 +72,12 @@ void TabStability::findEigenpoints(IDynModelPlugin *plugin, QStringList pointLis
 QList<StablePointForPhasePortrait> TabStability::getEquilibriumPoints() const
 {
     QList<StablePointForPhasePortrait> out;
-    for (int i = 0; i < equilPoints.size(); i++) {
+    for (int i = 0; i < eigenPoints.size(); i++) {
         /// TODO: Добавить для 3 точек
-        if (equilPoints.at(i).size() == 2)
-            out << StablePointForPhasePortrait(equilPoints[i],
-                                               StabilityUtil::resolveLambda(
-                                                    eigenPoints.at(i)[0],
-                                                    eigenPoints.at(i)[1]));
+        if (equilPoints.size() == 2)
+            out << StablePointForPhasePortrait(equilPoints.at(i),
+                                               StabilityUtil::resolveLambda(eigenPoints[i].at(0),
+                                                                            eigenPoints[i].at(1)));
     }
     return out;
 }
