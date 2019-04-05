@@ -104,7 +104,7 @@ void ResultWidget::drawGraphs()
 {
     Q_ASSERT(results.size() == DiffWorker::MethodNum);
     ui->tab2DCurves->clearPlot();
-    if (getSizeOfData() != 1)
+    if (getSizeOfData() == 2)
         ui->tabPhase->setEquilibriumPoints(stablePoints);
 
     if (!roles.isEmpty())

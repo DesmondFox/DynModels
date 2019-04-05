@@ -7,4 +7,6 @@ SUBDIRS += \
 #    Plugins/volterra2victims \
 #    Plugins/loglotkavolterra \
 #    Plugins/jacobmonod
-    plugins/verhulst
+    plugins/verhulst \
+    Plugins/lorenz
+#    plugins/lorenz

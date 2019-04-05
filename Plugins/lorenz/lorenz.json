@@ -1,0 +1,39 @@
+{
+    "Keys" : [],
+    "ID" : "3",
+    "ModelName": "Модель Лоренца",
+    "Expressions": 3,
+    "Description" : "<p align=justify> TODO.</p>",
+    "Data": {
+        "InputAttributes" : [
+            "X",
+            "Y",
+            "Z"
+        ],
+        "Coefs": [
+            {
+                "Name" : "Коеф. a",
+                "Tip" : "Коеф 1",
+                "Value" : "10",
+                "Letter" : "a"
+            },
+            {
+                "Name" : "Коеф. b",
+                "Tip" : "Коеф 2",
+                "Value" : "28",
+                "Letter" : "b"
+            },
+            {
+                "Name" : "Коеф. c",
+                "Tip" : "Коеф 2",
+                "Value" : "3",
+                "Letter" : "c"
+            }
+        ],
+        "RoleNames" : [
+            "Role X",
+            "Role Y",
+            "Role Z"
+        ]
+    }
+}
