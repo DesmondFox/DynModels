@@ -22,6 +22,22 @@ public:
     // IDynModelPlugin interface
 public:
     QPixmap getFormulaPixmap();
+
+private:
+    qreal a1;// a1 - Рождаемость жертв1
+    qreal a2;  // a2 - Рождаемость жертв2
+    qreal b1;  // b1 - Коэф убийства жертвы1 хищником
+    qreal b2;  // b2 - Коэф убийства жертвы2 хищником
+    qreal c;  // c  - Смертность хищника
+    qreal d1;  // d1 - Рождаемость хищников?
+    qreal d2;
+
+    // IDynModelPlugin interface
+public:
+    QList<StabilityPoint> getEquilibriumPoints();
+    QList<PointComplex> getEigenvalues();
+    QString getEigenvaluesSolve();
+    Point getStartValues();
 };
 
 #endif // VOLTERRA2VICTIMS_H

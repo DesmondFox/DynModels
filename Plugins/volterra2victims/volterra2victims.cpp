@@ -25,13 +25,13 @@ QList<Element> Volterra2Victims::differentiate(const DiffSettings &settings)
 
     /// TODO: Разобраться с коэффициентами
     // Коэффицициенты
-    qreal   a1  = settings.data.at(0),  // a1 - Рождаемость жертв1
-            a2  = settings.data.at(1),  // a2 - Рождаемость жертв2
-            b1  = settings.data.at(2),  // b1 - Коэф убийства жертвы1 хищником
-            b2  = settings.data.at(3),  // b2 - Коэф убийства жертвы2 хищником
-            c   = settings.data.at(4),  // c  - Смертность хищника
-            d1  = settings.data.at(5),  // d1 - Рождаемость хищников?
-            d2  = settings.data.at(6);  // d2 - Рождаемость хищников?
+    a1  = settings.data.at(0);  // a1 - Рождаемость жертв1
+    a2  = settings.data.at(1);  // a2 - Рождаемость жертв2
+    b1  = settings.data.at(2);  // b1 - Коэф убийства жертвы1 хищником
+    b2  = settings.data.at(3);  // b2 - Коэф убийства жертвы2 хищником
+    c   = settings.data.at(4);  // c  - Смертность хищника
+    d1  = settings.data.at(5);  // d1 - Рождаемость хищников?
+    d2  = settings.data.at(6);  // d2 - Рождаемость хищников?
 
     // Количества жертв и хищников
     qreal   prev_x1 = settings.startValues.at(0),
@@ -125,16 +125,16 @@ QList<Element> Volterra2Victims::differentiate(const DiffSettings &settings)
                         y_1 = out.at(iteration-1).second.at(2);  // Yn-1
 
                 x1   = x1_1+h*((1901.0/720.0*(a1*x1_1-b1*x1_1*y_1)) -
-                              (1387.0/360.0 *(a1*x1_2-b1*x1_2*y_2)) +
-                              (109.0/30.0   *(a1*x1_3-b1*x1_3*y_3))   -
-                              (637.0/360.0  *(a1*x1_4-b1*x1_4*y_4))  +
-                              (251.0/720.0  *(a1*x1_5-b1*x1_5*y_5)));
+                               (1387.0/360.0 *(a1*x1_2-b1*x1_2*y_2)) +
+                               (109.0/30.0   *(a1*x1_3-b1*x1_3*y_3))   -
+                               (637.0/360.0  *(a1*x1_4-b1*x1_4*y_4))  +
+                               (251.0/720.0  *(a1*x1_5-b1*x1_5*y_5)));
 
                 x2   = x2_1+h*((1901.0/720.0*(a2*x2_1-b2*x2_1*y_1)) -
-                              (1387.0/360.0 *(a2*x2_2-b2*x2_2*y_2)) +
-                              (109.0/30.0   *(a2*x2_3-b2*x2_3*y_3))   -
-                              (637.0/360.0  *(a2*x2_4-b2*x2_4*y_4))  +
-                              (251.0/720.0  *(a2*x2_5-b2*x2_5*y_5)));
+                               (1387.0/360.0 *(a2*x2_2-b2*x2_2*y_2)) +
+                               (109.0/30.0   *(a2*x2_3-b2*x2_3*y_3))   -
+                               (637.0/360.0  *(a2*x2_4-b2*x2_4*y_4))  +
+                               (251.0/720.0  *(a2*x2_5-b2*x2_5*y_5)));
 
                 y   = y_1 +h*((1901.0/720.0 *(-c*y_1+d1*x1_1*y_1+d2*x2_1*y_1)) -
                               (1387.0/360.0 *(-c*y_2+d1*x1_2*y_1+d2*x2_2*y_2)) +
@@ -159,4 +159,24 @@ QList<Element> Volterra2Victims::differentiate(const DiffSettings &settings)
 QPixmap Volterra2Victims::getFormulaPixmap()
 {
     return QPixmap(":/formula/img/lvolterra2victims.png");
+}
+
+QList<StabilityPoint> Volterra2Victims::getEquilibriumPoints()
+{
+    return QList<StabilityPoint>();
+}
+
+QList<PointComplex> Volterra2Victims::getEigenvalues()
+{
+    return QList<PointComplex>();
+}
+
+QString Volterra2Victims::getEigenvaluesSolve()
+{
+    return "Eigen values todo";
+}
+
+Point Volterra2Victims::getStartValues()
+{
+    return Point();
 }
