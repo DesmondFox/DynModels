@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>182</width>
+    <width>224</width>
     <height>141</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>182</width>
+    <width>191</width>
     <height>120</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>182</width>
+    <width>224</width>
     <height>141</height>
    </size>
   </property>
