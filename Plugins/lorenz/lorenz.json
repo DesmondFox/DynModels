@@ -1,7 +1,7 @@
 {
     "Keys" : [],
-    "ID" : "3",
-    "ModelName": "Модель Лоренца",
+    "ID" : "4",
+    "ModelName": "[3 змінні]Модель Лоренца",
     "Expressions": 3,
     "Description" : "<p align=justify> TODO.</p>",
     "Data": {
@@ -31,9 +31,9 @@
             }
         ],
         "RoleNames" : [
-            "Role X",
-            "Role Y",
-            "Role Z"
+            "Динам. змінна X",
+            "Динам. змінна Y",
+            "Динам. змінна Z"
         ]
     }
 }

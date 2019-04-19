@@ -14,19 +14,19 @@
             {
                 "Name" : "Коеф. a",
                 "Tip" : "Коеф 1",
-                "Value" : "10",
+                "Value" : "0.2",
                 "Letter" : "a"
             },
             {
                 "Name" : "Коеф. b",
                 "Tip" : "Коеф 2",
-                "Value" : "28",
+                "Value" : "0.2",
                 "Letter" : "b"
             },
             {
                 "Name" : "Коеф. c",
                 "Tip" : "Коеф 2",
-                "Value" : "3",
+                "Value" : "5.7",
                 "Letter" : "c"
             }
         ],
