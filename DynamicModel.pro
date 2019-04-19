@@ -8,5 +8,6 @@ SUBDIRS += \
 #    Plugins/loglotkavolterra \
 #    Plugins/jacobmonod
     plugins/verhulst \
-    Plugins/lorenz
+    Plugins/lorenz  \
+    Plugins/ressler
 #    plugins/lorenz
