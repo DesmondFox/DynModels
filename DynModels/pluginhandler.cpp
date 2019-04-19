@@ -50,6 +50,10 @@ QList<Plugin> PluginHandler::loadPlugins()
             out << plugin;
         }
     }
+    // Отсортируем плагины по количеству уравнений (в начале - с 1-м)
+    std::sort(out.begin(), out.end(), [](Plugin a, Plugin b){
+        return a.metadata.id < b.metadata.id;
+    });
     return out;
 }
 
