@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include "commonplot.h"
-#include "tabstability.h"
 
 class PhasePortrait : public CommonPlot
 {

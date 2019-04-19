@@ -1,31 +1,33 @@
-#include "tabstability.h"
-#include "ui_tabstability.h"
+#include "aboutmodelwidget.h"
 #include "utils/stabilityutil.h"
 
-TabStability::TabStability(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::TabStability)
+AboutModelWidget::AboutModelWidget(QWidget *parent) : QTextEdit(parent)
 {
-    ui->setupUi(this);
+
 }
 
-TabStability::~TabStability()
+void AboutModelWidget::setStabDescription(IDynModelPlugin *plugin)
 {
-    delete ui;
+    stabilityStr = "<hr>";
+    findEquilibriumPoints(plugin);
+    setHtml(mainText+stabilityStr);
 }
 
-void TabStability::setVis(bool visible)
-{
 
-    ui->noResultLbl->setVisible(!visible);
-    ui->lblEquil->setVisible(visible);
-    ui->lblEigenValues->setVisible(visible);
-    ui->label_eigen->setVisible(visible);
-    ui->label_eq->setVisible(visible);
+void AboutModelWidget::setVis(bool visible)
+{
 }
 
-void TabStability::findEquilibriumPoints(IDynModelPlugin *plugin)
+void AboutModelWidget::setDescription(const QString &str)
 {
+    stabilityStr.clear();
+    this->setHtml(str);
+    mainText = str;
+}
+
+void AboutModelWidget::findEquilibriumPoints(IDynModelPlugin *plugin)
+{
+    stabilityStr += "Точки равновестия: ";
     QStringList line;
     for (StabilityPoint point : plugin->getEquilibriumPoints())
     {
@@ -37,12 +39,14 @@ void TabStability::findEquilibriumPoints(IDynModelPlugin *plugin)
         tmp += ")";
         line << tmp;
     }
-    ui->lblEquil->setText(line.join(", "));
+    stabilityStr += line.join(", ");
+    stabilityStr += "<br>";
     findEigenpoints(plugin, line);
 }
 
-void TabStability::findEigenpoints(IDynModelPlugin *plugin, QStringList pointList)
+void AboutModelWidget::findEigenpoints(IDynModelPlugin *plugin, QStringList pointList)
 {
+    stabilityStr += "Собственные значения";
     equilPoints = plugin->getEquilibriumPoints();
     eigenPoints = plugin->getEigenvalues();
 
@@ -63,11 +67,10 @@ void TabStability::findEigenpoints(IDynModelPlugin *plugin, QStringList pointLis
 
 
     }
-    ui->lblEigenValues->setText(lines.join("<br>"));
-
+    stabilityStr += lines.join("<br>");
 }
 
-QList<StablePointForPhasePortrait> TabStability::getEquilibriumPoints() const
+QList<StablePointForPhasePortrait> AboutModelWidget::getEquilibriumPoints() const
 {
     QList<StablePointForPhasePortrait> out;
     for (int i = 0; i < eigenPoints.size(); i++) {
@@ -77,9 +80,4 @@ QList<StablePointForPhasePortrait> TabStability::getEquilibriumPoints() const
                                                equilPoints.at(i).formula);
     }
     return out;
-}
-
-void TabStability::setPlugin(IDynModelPlugin *plugin)
-{
-    findEquilibriumPoints(plugin);
 }

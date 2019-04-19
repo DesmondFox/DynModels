@@ -2,7 +2,7 @@
 #define STABILITYUTIL_H
 
 #include <QString>
-#include "tabstability.h"
+#include "aboutmodelwidget.h"
 
 class StabilityUtil
 {

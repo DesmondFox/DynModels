@@ -3,7 +3,7 @@
 
 #include <qcustomplot.h>
 #include "diffworker.h"
-#include "tabstability.h"
+#include "aboutmodelwidget.h"
 
 class CommonPlot : public QCustomPlot
 {

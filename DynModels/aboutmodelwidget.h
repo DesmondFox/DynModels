@@ -1,8 +1,9 @@
-#ifndef TABSTABILITY_H
-#define TABSTABILITY_H
+#ifndef ABOUTMODELWIDGET_H
+#define ABOUTMODELWIDGET_H
 
-#include <QWidget>
+#include <QTextEdit>
 #include "../plugins/idynmodelplugin.h"
+
 struct StablePointForPhasePortrait
 {
     StablePointForPhasePortrait(Point pn, QString descr) {
@@ -13,28 +14,24 @@ struct StablePointForPhasePortrait
 };
 
 
-namespace Ui {
-class TabStability;
-}
-
-
-class TabStability : public QWidget
+class AboutModelWidget : public QTextEdit
 {
     Q_OBJECT
-
 public:
-    explicit TabStability(QWidget *parent = nullptr);
-    ~TabStability();
-    void setVis(bool visible);
-    void setPlugin(IDynModelPlugin *plugin);
+    explicit AboutModelWidget(QWidget *parent = nullptr);
+    void setStabDescription(IDynModelPlugin *plugin);
     QList<StablePointForPhasePortrait> getEquilibriumPoints() const;
+    void setVis(bool visible);
+    void setDescription(const QString &str);
 
 private:
-    Ui::TabStability *ui;
     void findEquilibriumPoints(IDynModelPlugin *plugin);
     void findEigenpoints(IDynModelPlugin *plugin, QStringList pointList);
     QList<StabilityPoint> equilPoints;
     QList<PointComplex> eigenPoints;
+
+    QString stabilityStr;
+    QString mainText;
 };
 
-#endif // TABSTABILITY_H
+#endif // ABOUTMODELWIDGET_H

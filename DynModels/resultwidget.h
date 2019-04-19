@@ -5,6 +5,7 @@
 #include <QChart>
 #include <QSplineSeries>
 #include "plot2d.h"
+#include "aboutmodelwidget.h"
 
 namespace Ui {
 class ResultWidget;

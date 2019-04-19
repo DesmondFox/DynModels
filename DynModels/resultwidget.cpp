@@ -10,7 +10,6 @@ ResultWidget::ResultWidget(QWidget *parent) :
     connect(ui->tab2DCurves,    SIGNAL(mouseHover(QPointF)), this, SIGNAL(sigMouseHoveredOn2DPlots(QPointF)));
     connect(ui->tabPhase,       SIGNAL(mouseHover(QPointF)), this, SIGNAL(sigMouseHoveredOn2DPlots(QPointF)));
     connect(ui->tabWidget,      SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetIndexChanged(int)));
-    ui->tabStability->setVis(false);
 }
 
 ResultWidget::~ResultWidget()
@@ -45,9 +44,8 @@ void ResultWidget::setData(const QList<ASolveByMethod> &solve,
         ui->tabPhase->clearPlot();
     }
 
-    ui->tabStability->setVis(true);
-    ui->tabStability->setPlugin(plugin);
-    stablePoints = ui->tabStability->getEquilibriumPoints();
+    ui->aboutModel->setStabDescription(plugin);
+    stablePoints = ui->aboutModel->getEquilibriumPoints();
 
     if (ui->tabWidget->currentIndex() == 0)
         this->drawGraphs();
@@ -64,7 +62,7 @@ void ResultWidget::setDescriprionAboutModel(const QString &mainData, const QStri
     descr += mainData;
     descr += "<hr>";
     descr += fulldesc;
-    ui->aboutModel->setHtml(descr);
+    ui->aboutModel->setDescription(descr);
 }
 
 void ResultWidget::on_cbEulers_clicked()

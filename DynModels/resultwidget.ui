@@ -163,14 +163,6 @@
        <string>Таблиця</string>
       </attribute>
      </widget>
-     <widget class="TabStability" name="tabStability">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <attribute name="title">
-       <string>Устойчивость</string>
-      </attribute>
-     </widget>
      <widget class="QWidget" name="tabAboutModel">
       <attribute name="title">
        <string>Про модель</string>
@@ -189,7 +181,7 @@
         <number>5</number>
        </property>
        <item>
-        <widget class="QTextEdit" name="aboutModel">
+        <widget class="AboutModelWidget" name="aboutModel">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -227,10 +219,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>TabStability</class>
-   <extends>QWidget</extends>
-   <header>tabstability.h</header>
-   <container>1</container>
+   <class>AboutModelWidget</class>
+   <extends>QTextEdit</extends>
+   <header>aboutmodelwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>
