@@ -1,6 +1,7 @@
 #include "resultdialog.h"
 #include "ui_resultdialog.h"
 #include <QGridLayout>
+#include <cmath>
 
 GBWidget::GBWidget(QWidget *parent)
     : QWidget(parent),
@@ -31,11 +32,11 @@ void GBWidget::setValues(const QStringList &roles, const QVector<qreal> &values)
 
     int size = roles.size();
     pRole1->setText(roles.at(0));
-    pValue1->setText(QString("%1 <font color=green>(%2)</font> особин").arg(QString::number(values.at(0), 'f', 0)).arg(values.at(0)));
+    pValue1->setText(QString("%1 <font color=green>(%2)</font> особин").arg(QString::number(std::floor(values.at(0))).arg(values.at(0))));
 
     if (size >= 2) {
         pRole2->setText(roles.at(1));
-        pValue2->setText(QString("%1 <font color=green>(%2)</font> особин").arg(QString::number(values.at(1), 'f', 0)).arg(values.at(1)));
+        pValue2->setText(QString("%1 <font color=green>(%2)</font> особин").arg(QString::number(std::floor(values.at(1))).arg(values.at(1))));
         pRole2->setVisible(true);
         pValue2->setVisible(true);
 
@@ -47,7 +48,7 @@ void GBWidget::setValues(const QStringList &roles, const QVector<qreal> &values)
     if (size == 3)
     {
         pRole3->setText(roles.at(2));
-        pValue3->setText(QString("%1 <font color=green>(%2)</font> особин").arg(QString::number(values.at(2), 'f', 0)).arg(values.at(2)));
+        pValue3->setText(QString("%1 <font color=green>(%2)</font> особин").arg(QString::number(std::floor(values.at(2))).arg(values.at(2))));
         pRole3->setVisible(true);
         pValue3->setVisible(true);
     }

@@ -1,5 +1,5 @@
 #include "verhulstmodel.h"
-
+#include <cmath>
 
 VerhulstModel::VerhulstModel(QObject *parent) :
     QObject(parent)
@@ -39,6 +39,8 @@ QList<Element> VerhulstModel::differentiate(const DiffSettings &settings)
         if (method == DiffMethod::Eilers)
         {
             x = prev_x + h*(r*prev_x*(1-prev_x/k));
+//            x = prev_x + h* ((1.0 - (prev_x*r)/k) * powf(M_E, r*(1.0-prev_x/k)));
+//            x = prev_x + h*(r*prev_x*(1.0-prev_x));
         }
         if (method == DiffMethod::ModifiedEilers)
         {
