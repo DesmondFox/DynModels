@@ -156,7 +156,7 @@ QList<Element> LorenzModel::differentiate(const DiffSettings &settings)
 
 QPixmap LorenzModel::getFormulaPixmap()
 {
-    return QPixmap();
+    return QPixmap(":/lorenz_formula.png");
 }
 
 QList<StabilityPoint> LorenzModel::getEquilibriumPoints()

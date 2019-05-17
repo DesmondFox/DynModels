@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>lorenz_formula.png</file>
+        <file>Lorenz-100.jpg</file>
+    </qresource>
+</RCC>

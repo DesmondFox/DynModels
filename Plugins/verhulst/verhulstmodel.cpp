@@ -103,7 +103,7 @@ QList<Element> VerhulstModel::differentiate(const DiffSettings &settings)
 
 QPixmap VerhulstModel::getFormulaPixmap()
 {
-    return QPixmap();
+    return QPixmap(":/formula.png");
 }
 
 QList<StabilityPoint> VerhulstModel::getEquilibriumPoints()

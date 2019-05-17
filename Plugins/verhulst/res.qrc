@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>formula.png</file>
+        <file>precisious.png</file>
+    </qresource>
+</RCC>
