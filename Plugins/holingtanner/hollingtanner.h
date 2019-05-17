@@ -20,6 +20,21 @@ public:
 public:
     QList<Element> differentiate(const DiffSettings &settings);
     QPixmap getFormulaPixmap();
+
+private:
+    Point startValues;
+    qreal r;  // r
+    qreal s; // s
+    qreal K;
+    qreal D;
+    qreal J;
+    qreal w;
+    // IDynModelPlugin interface
+public:
+    QList<StabilityPoint> getEquilibriumPoints();
+    QList<PointComplex> getEigenvalues();
+    QString getEigenvaluesSolve();
+    Point getStartValues();
 };
 
 #endif // HOLLINGTANNER_H

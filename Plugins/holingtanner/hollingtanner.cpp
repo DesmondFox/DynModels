@@ -24,12 +24,12 @@ QList<Element> HollingTanner::differentiate(const DiffSettings &settings)
     DiffMethod  method = settings.diffMethod;
 
     // Коэффицициенты
-    qreal   r   = settings.data.at(0),  // r
-            s   = settings.data.at(1),  // s
-            K   = settings.data.at(2),  // K
-            D   = settings.data.at(3),  // D
-            J   = settings.data.at(4),  // J
-            w   = settings.data.at(5);  // w
+    r   = settings.data.at(0);  // r
+    s   = settings.data.at(1);  // s
+    K   = settings.data.at(2);  // K
+    D   = settings.data.at(3);  // D
+    J   = settings.data.at(4);  // J
+    w   = settings.data.at(5);  // w
 
     // Количества жертв и хищников
     qreal   prev_x  = settings.startValues.at(0),
@@ -130,4 +130,24 @@ QList<Element> HollingTanner::differentiate(const DiffSettings &settings)
 QPixmap HollingTanner::getFormulaPixmap()
 {
     return QPixmap(":/formula/img/formula.png");
+}
+
+QList<StabilityPoint> HollingTanner::getEquilibriumPoints()
+{
+    return QList<StabilityPoint>();
+}
+
+QList<PointComplex> HollingTanner::getEigenvalues()
+{
+    return QList<PointComplex>();
+}
+
+QString HollingTanner::getEigenvaluesSolve()
+{
+    return QString();
+}
+
+Point HollingTanner::getStartValues()
+{
+    return startValues;
 }

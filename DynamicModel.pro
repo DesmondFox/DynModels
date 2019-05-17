@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     DynModels \
-#    Plugins/holingtanner \
+    Plugins/holingtanner \
     plugins/lotkavolterramodel \
     Plugins/volterra2victims \
 #    Plugins/loglotkavolterra \
