@@ -27,7 +27,7 @@ void AboutModelWidget::setDescription(const QString &str)
 
 void AboutModelWidget::findEquilibriumPoints(IDynModelPlugin *plugin)
 {
-    stabilityStr += "Точки равновестия: ";
+    stabilityStr += "Точки рівноваги: ";
     QStringList line;
     for (StabilityPoint point : plugin->getEquilibriumPoints())
     {
@@ -46,7 +46,7 @@ void AboutModelWidget::findEquilibriumPoints(IDynModelPlugin *plugin)
 
 void AboutModelWidget::findEigenpoints(IDynModelPlugin *plugin, QStringList pointList)
 {
-    stabilityStr += "Собственные значения";
+    stabilityStr += "Власні значення";
     equilPoints = plugin->getEquilibriumPoints();
     eigenPoints = plugin->getEigenvalues();
 
