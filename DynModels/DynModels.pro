@@ -59,7 +59,6 @@ SOURCES += \
     external/dataloader.cpp \
     dialogs/resultdialog.cpp \
     dialogs/welcomedialog.cpp \
-    utils/stabilityutil.cpp \
     aboutmodelwidget.cpp
 
 HEADERS += \
@@ -82,7 +81,6 @@ HEADERS += \
     external/dataloader.h \
     dialogs/resultdialog.h \
     dialogs/welcomedialog.h \
-    utils/stabilityutil.h \
     aboutmodelwidget.h
 
 FORMS += \

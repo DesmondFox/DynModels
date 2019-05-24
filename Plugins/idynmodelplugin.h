@@ -79,10 +79,11 @@ public:
     // Собственные значения
     virtual QList<PointComplex> getEigenvalues() = 0;
 //    virtual ~IDynModelPlugin() = 0;
-    // Показать как находятся собств. значения
-    virtual QString getEigenvaluesSolve() = 0;
     // Начальные значения популяции
     virtual Point getStartValues() = 0;
+
+    // Решение собственных значений
+    virtual QString resolveLambdas(const PointComplex &complex) = 0;
 };
 
 #define IDynModelPlugin_iid "com.github.desmondfox.idynmodelplugin"

@@ -108,20 +108,30 @@ QPixmap VerhulstModel::getFormulaPixmap()
 
 QList<StabilityPoint> VerhulstModel::getEquilibriumPoints()
 {
-    return QList<StabilityPoint>();
+    QList<StabilityPoint> points;
+
+    points << StabilityPoint(QList<qreal>() << 0, "[0]");
+    points << StabilityPoint(QList<qreal>() << k, "[K]");
+
+    return points;
 }
 
 QList<PointComplex> VerhulstModel::getEigenvalues()
 {
-    return QList<PointComplex>();
-}
+    qreal startValue = getStartValues()[0];
+    QList<PointComplex> com;
+    com.append(QList<Complex>()
+        << Complex(0, r-(2*r*startValue)/k));
 
-QString VerhulstModel::getEigenvaluesSolve()
-{
-    return "Eigen values todo";
+    return com;
 }
 
 Point VerhulstModel::getStartValues()
 {
     return startValues;
+}
+
+QString VerhulstModel::resolveLambdas(const PointComplex &complex)
+{
+    return "";
 }

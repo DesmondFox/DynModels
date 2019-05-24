@@ -30,8 +30,9 @@ private:
 public:
     QList<StabilityPoint> getEquilibriumPoints();
     QList<PointComplex> getEigenvalues();
-    QString getEigenvaluesSolve();
     Point getStartValues();
+
+    QString resolveLambdas(const PointComplex &complex);
 };
 
 #endif // LOTKAVOLTERRAMODEL_H
