@@ -1,5 +1,4 @@
 #include "aboutmodelwidget.h"
-#include "utils/stabilityutil.h"
 
 AboutModelWidget::AboutModelWidget(QWidget *parent) : QTextEdit(parent)
 {
@@ -46,12 +45,12 @@ void AboutModelWidget::findEquilibriumPoints(IDynModelPlugin *plugin)
 
 void AboutModelWidget::findEigenpoints(IDynModelPlugin *plugin, QStringList pointList)
 {
-    stabilityStr += "Власні значення";
+    stabilityStr += "Власні значення: ";
     equilPoints = plugin->getEquilibriumPoints();
     eigenPoints = plugin->getEigenvalues();
 
     QStringList lines;
-    for (int i = 0; i < equilPoints.size(); i++) {
+    for (int i = 0; i < eigenPoints.size(); i++) {
 
         QStringList pn;
         PointComplex ePt = eigenPoints.at(i);
@@ -59,11 +58,10 @@ void AboutModelWidget::findEigenpoints(IDynModelPlugin *plugin, QStringList poin
             pn.append(QString::number(ePt.at(j).lambda));
 
         /// TODO: Добавить для 3 точек
-        if (ePt.size() == 2)
-            lines.append(QString("%1 - <b>%2</b> -> <font color=green>%3</font>")
-                         .arg(pointList.at(i))
-                         .arg("["+pn.join("; ")+"]")
-                         .arg(StabilityUtil::resolveLambda(ePt.at(0), ePt.at(1))));
+        lines.append(QString("%1 - <b>%2</b> -> <font color=green>%3</font>")
+                     .arg(pointList.at(i))
+                     .arg("["+pn.join("; ")+"]")
+                     .arg(plugin->resolveLambdas(ePt)));
 
 
     }
