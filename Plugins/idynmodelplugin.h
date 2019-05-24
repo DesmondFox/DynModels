@@ -47,6 +47,13 @@ typedef QPair<qreal, QVector<qreal>> Element;
 typedef QList<qreal> Point;
 
 struct StabilityPoint {
+    StabilityPoint() {}
+
+    StabilityPoint(Point p, QString formula) {
+        this->point = p;
+        this->formula = formula;
+    }
+
     Point point;
     QString formula;
 };
