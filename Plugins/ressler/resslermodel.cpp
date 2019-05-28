@@ -1,5 +1,5 @@
 #include "ResslerModel.h"
-
+#include <cmath>
 
 ResslerModel::ResslerModel(QObject *parent) :
     QObject(parent)
@@ -156,31 +156,44 @@ QList<Element> ResslerModel::differentiate(const DiffSettings &settings)
         out << element;
         iteration++;
     }
-
     return out;
 }
 
 QPixmap ResslerModel::getFormulaPixmap()
 {
-    return QPixmap();
+    return QPixmap(":/formula.png");
 }
 
 QList<StabilityPoint> ResslerModel::getEquilibriumPoints()
 {
-    return QList<StabilityPoint>();
+    QList<StabilityPoint> stab;
+    stab.append(StabilityPoint(
+                QList<qreal>()  << (c + sqrt(c*c - 4*a*b)) / 2
+                                << (-c - sqrt(c*c - 4*a*b)) / (2*a)
+                                << (c + sqrt(c*c - 4*a*b)) / (2*a), ""));
+    stab.append(StabilityPoint(
+                QList<qreal>()  << (c - sqrt(c*c - 4*a*b)) / 2
+                                << (-c + sqrt(c*c - 4*a*b)) / (2*a)
+                                << (c - sqrt(c*c - 4*a*b)) / (2*a), ""));
+    return stab;
 }
 
 QList<PointComplex> ResslerModel::getEigenvalues()
 {
-    return QList<PointComplex>();
-}
-
-QString ResslerModel::getEigenvaluesSolve()
-{
-    return "Eigen values todo";
+    QList<PointComplex> eig;
+    eig.append(QList<Complex>() <<
+               Complex(0, (a+sqrt(a*a - 4))/2));
+    eig.append(QList<Complex>() <<
+               Complex(0, (a-sqrt(a*a - 4))/2));
+    return eig;
 }
 
 Point ResslerModel::getStartValues()
 {
     return startValues;
+}
+
+QString ResslerModel::resolveLambdas(const PointComplex &complex)
+{
+    return "";
 }

@@ -27,8 +27,11 @@ public:
     QPixmap getFormulaPixmap();
     QList<StabilityPoint> getEquilibriumPoints();
     QList<PointComplex> getEigenvalues();
-    QString getEigenvaluesSolve();
     Point getStartValues();
+
+    // IDynModelPlugin interface
+public:
+    QString resolveLambdas(const PointComplex &complex);
 };
 
 #endif // ResslerModel_H

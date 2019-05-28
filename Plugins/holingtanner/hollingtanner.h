@@ -33,8 +33,11 @@ private:
 public:
     QList<StabilityPoint> getEquilibriumPoints();
     QList<PointComplex> getEigenvalues();
-    QString getEigenvaluesSolve();
     Point getStartValues();
+
+    // IDynModelPlugin interface
+public:
+    QString resolveLambdas(const PointComplex &complex);
 };
 
 #endif // HOLLINGTANNER_H

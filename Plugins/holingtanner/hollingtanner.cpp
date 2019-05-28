@@ -1,5 +1,6 @@
 #include "hollingtanner.h"
 #include <QDebug>
+#include <cmath>
 
 HollingTanner::HollingTanner(QObject *parent) :
     QObject(parent)
@@ -19,6 +20,8 @@ QList<Element> HollingTanner::differentiate(const DiffSettings &settings)
             end = settings.endTime,
             h = settings.step;
     QList<Element> out;
+
+    startValues = settings.startValues;
 
     // Метод интегрирования
     DiffMethod  method = settings.diffMethod;
@@ -134,7 +137,28 @@ QPixmap HollingTanner::getFormulaPixmap()
 
 QList<StabilityPoint> HollingTanner::getEquilibriumPoints()
 {
-    return QList<StabilityPoint>();
+    QList<StabilityPoint> stab;
+    qreal y = startValues[1];
+
+    qreal x1, x2, y1, y2;
+
+    y1 = (-(r*J*(J*K-D*J) - K*J*w) + sqrt(pow(r*J*(J*K-D*J) - K*J*w, 2) - 4*(-pow(J, 3)*pow(y, 2))*(r*J*D*K)))
+            / (-2*r*pow(J, 3));
+    x1 = J*y1;
+
+    y2 = (-(r*J*(J*K-D*J) - K*J*w) - sqrt(pow(r*J*(J*K-D*J) - K*J*w, 2) - 4*(-pow(J, 3)*pow(y, 2))*(r*J*D*K)))
+            / (-2*r*pow(J, 3));
+    x2 = J*y2;
+
+    stab.append(StabilityPoint(
+                    QList<qreal>()  << x1
+                                    << y1
+                    , ""));
+    stab.append(StabilityPoint(
+                    QList<qreal>()  << x2
+                                    << y2
+                    , ""));
+    return stab;
 }
 
 QList<PointComplex> HollingTanner::getEigenvalues()
@@ -142,12 +166,12 @@ QList<PointComplex> HollingTanner::getEigenvalues()
     return QList<PointComplex>();
 }
 
-QString HollingTanner::getEigenvaluesSolve()
-{
-    return QString();
-}
-
 Point HollingTanner::getStartValues()
 {
     return startValues;
+}
+
+QString HollingTanner::resolveLambdas(const PointComplex &complex)
+{
+    return QString();
 }
