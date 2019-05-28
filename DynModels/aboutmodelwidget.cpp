@@ -26,7 +26,7 @@ void AboutModelWidget::setDescription(const QString &str)
 
 void AboutModelWidget::findEquilibriumPoints(IDynModelPlugin *plugin)
 {
-    stabilityStr += "Точки рівноваги: ";
+    stabilityStr += "<p><font size=\"5\">Точки рівноваги: ";
     QStringList line;
     for (StabilityPoint point : plugin->getEquilibriumPoints())
     {
@@ -45,6 +45,11 @@ void AboutModelWidget::findEquilibriumPoints(IDynModelPlugin *plugin)
 
 void AboutModelWidget::findEigenpoints(IDynModelPlugin *plugin, QStringList pointList)
 {
+    if (plugin->getEigenvalues().size() == 0) {
+        stabilityStr += "</font></p>";
+        return;
+    }
+
     stabilityStr += "Власні значення: ";
     equilPoints = plugin->getEquilibriumPoints();
     eigenPoints = plugin->getEigenvalues();
@@ -57,15 +62,16 @@ void AboutModelWidget::findEigenpoints(IDynModelPlugin *plugin, QStringList poin
         for (int j = 0; j < ePt.size(); j++)
             pn.append(QString::number(ePt.at(j).lambda));
 
-        /// TODO: Добавить для 3 точек
-        lines.append(QString("%1 - <b>%2</b> -> <font color=green>%3</font>")
-                     .arg(pointList.at(i))
-                     .arg("["+pn.join("; ")+"]")
-                     .arg(plugin->resolveLambdas(ePt)));
 
-
+        QString line = QString("%1 - <b>%2</b>")
+                .arg(pointList.at(i))
+                .arg("["+pn.join("; ")+"]");
+        if (!plugin->resolveLambdas(ePt).isEmpty())
+            line += QString(" -> %1").arg(plugin->resolveLambdas(ePt));
+        lines.append(line);
     }
     stabilityStr += lines.join("<br>");
+    stabilityStr += "</font></p>";
 }
 
 QList<StablePointForPhasePortrait> AboutModelWidget::getEquilibriumPoints() const
