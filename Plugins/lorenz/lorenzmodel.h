@@ -16,9 +16,9 @@ public:
     LorenzModel(QObject *parent = 0);
 
 private:
-    qreal a;    // Коэф. r
-    qreal b;     // Коэф. убийства ж-вы х-ками
-    qreal c;
+    qreal d;    // Коэф. r
+    qreal r;     // Коэф. убийства ж-вы х-ками
+    qreal b;
     Point startValues;
 
     // IDynModelPlugin interface
@@ -29,6 +29,10 @@ public:
     QList<PointComplex> getEigenvalues();
     QString getEigenvaluesSolve();
     Point getStartValues();
+
+    // IDynModelPlugin interface
+public:
+    QString resolveLambdas(const PointComplex &complex);
 };
 
 #endif // LorenzModel_H

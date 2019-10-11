@@ -151,6 +151,10 @@ QList<StabilityPoint> HollingTanner::getEquilibriumPoints()
     x2 = J*y2;
 
     stab.append(StabilityPoint(
+                    QList<qreal>()  << 0
+                                    << 0
+                    , ""));
+    stab.append(StabilityPoint(
                     QList<qreal>()  << x1
                                     << y1
                     , ""));

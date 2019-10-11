@@ -33,7 +33,7 @@ QList<Element> ResslerModel::differentiate(const DiffSettings &settings)
     qreal   y;
     qreal   z;
 
-    quint32 iteration = 1; // итерация
+    int iteration = 1; // итерация
     // Первый элемент добавляем в выход
     out << QPair<qreal, QVector<qreal>>(start, {prev_x, prev_y, prev_z});
     // Просчет для каждого шага
@@ -181,10 +181,11 @@ QList<StabilityPoint> ResslerModel::getEquilibriumPoints()
 QList<PointComplex> ResslerModel::getEigenvalues()
 {
     QList<PointComplex> eig;
-    eig.append(QList<Complex>() <<
-               Complex(0, (a+sqrt(a*a - 4))/2));
-    eig.append(QList<Complex>() <<
-               Complex(0, (a-sqrt(a*a - 4))/2));
+
+//    eig.append(QList<Complex>() <<
+//               Complex(0, (a+sqrt(a*a - 4))/2));
+//    eig.append(QList<Complex>() <<
+//               Complex(0, (a-sqrt(a*a - 4))/2));
     return eig;
 }
 

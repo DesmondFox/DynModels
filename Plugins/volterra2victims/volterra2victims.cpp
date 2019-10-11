@@ -163,7 +163,16 @@ QPixmap Volterra2Victims::getFormulaPixmap()
 
 QList<StabilityPoint> Volterra2Victims::getEquilibriumPoints()
 {
-    return QList<StabilityPoint>();
+    QList<StabilityPoint> stab;
+    stab.append(StabilityPoint(
+                    QList<qreal>()  << c/d1
+                                    << 0
+                                    << a1/b1, ""));
+    stab.append(StabilityPoint(
+                    QList<qreal>()  << d1/c
+                                    << 0
+                                    << a2/b2, ""));
+    return stab;
 }
 
 QList<PointComplex> Volterra2Victims::getEigenvalues()
@@ -171,12 +180,12 @@ QList<PointComplex> Volterra2Victims::getEigenvalues()
     return QList<PointComplex>();
 }
 
-QString Volterra2Victims::getEigenvaluesSolve()
-{
-    return "Eigen values todo";
-}
-
 Point Volterra2Victims::getStartValues()
 {
     return Point();
+}
+
+QString Volterra2Victims::resolveLambdas(const PointComplex &complex)
+{
+    return "";
 }

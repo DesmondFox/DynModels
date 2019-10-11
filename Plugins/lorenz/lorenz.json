@@ -23,16 +23,16 @@
                 "Letter" : "a"
             },
             {
-                "Name" : "Коеф. b",
+                "Name" : "Коеф. r",
                 "Tip" : "Коеф 2",
                 "Value" : "28",
-                "Letter" : "b"
+                "Letter" : "r"
             },
             {
-                "Name" : "Коеф. c",
+                "Name" : "Коеф. b",
                 "Tip" : "Коеф 2",
                 "Value" : "3",
-                "Letter" : "c"
+                "Letter" : "b"
             }
         ],
         "RoleNames" : [

@@ -1,5 +1,5 @@
-#include "LorenzModel.h"
-
+#include "lorenzmodel.h"
+#include <cmath>
 
 LorenzModel::LorenzModel(QObject *parent) :
     QObject(parent)
@@ -20,9 +20,9 @@ QList<Element> LorenzModel::differentiate(const DiffSettings &settings)
     DiffMethod  method = settings.diffMethod;
 
     // Коэффицициенты
-    a = settings.data.at(0);  // Коэф. a
-    b = settings.data.at(1);  // Коэф. b
-    c = settings.data.at(2);  // Коэф. c
+    d = settings.data.at(0);  // Коэф. a
+    r = settings.data.at(1);  // Коэф. b
+    b = settings.data.at(2);  // Коэф. c
 
     // Количества жертв и хищников
     qreal   prev_x  = settings.startValues.at(0);
@@ -44,27 +44,27 @@ QList<Element> LorenzModel::differentiate(const DiffSettings &settings)
         if (method == DiffMethod::Eilers)
         {
             //            x = prev_x + h*(r*prev_x*(1-prev_x/k));
-            x = prev_x + h*(a*(prev_y-prev_x));
-            y = prev_y + h*(b*prev_x-prev_y-prev_x*prev_z);
-            z = prev_z + h*(-c*prev_z+prev_x*prev_y);
+            x = prev_x + h*(d*(prev_y-prev_x));
+            y = prev_y + h*(r*prev_x-prev_y-prev_x*prev_z);
+            z = prev_z + h*(-b*prev_z+prev_x*prev_y);
         }
         if (method == DiffMethod::ModifiedEilers)
         {
             double K[2];
 
             // X
-            K[0] = h*(a*(prev_y-prev_x));
-            K[0] = h*(a*((prev_y+K[0])-(prev_x+K[0])));
+            K[0] = h*(d*(prev_y-prev_x));
+            K[0] = h*(d*((prev_y+K[0])-(prev_x+K[0])));
             x = prev_x + (K[0]+K[1])/2.0;
 
             // Y
-            K[0] = h * (b*prev_x-prev_y-prev_x*prev_z);
-            K[1] = h * (b*(prev_x+K[0])-(prev_y+K[0])-(prev_x+K[0])*(prev_z+K[0]));
+            K[0] = h * (r*prev_x-prev_y-prev_x*prev_z);
+            K[1] = h * (r*(prev_x+K[0])-(prev_y+K[0])-(prev_x+K[0])*(prev_z+K[0]));
             y = prev_y + (K[0]+K[1])/2.0;
 
             // Z
-            K[0] = h * (-c*prev_z+prev_x*prev_y);
-            K[1] = h * (-c*(prev_z+K[0])+(prev_x+K[0])*(prev_y+K[0]));
+            K[0] = h * (-b*prev_z+prev_x*prev_y);
+            K[1] = h * (-b*(prev_z+K[0])+(prev_x+K[0])*(prev_y+K[0]));
             z = prev_z + (K[0]+K[1])/2.0;
         }
         // Для нахождения первых 5-х [0;5) точек для Адамса
@@ -77,24 +77,24 @@ QList<Element> LorenzModel::differentiate(const DiffSettings &settings)
                 qreal K[4];
 
                 // X1
-                K[0] = h* (a*(prev_y-prev_x));
-                K[1] = h* (a*((prev_y+0.5*K[0])-(prev_x+0.5*K[0])));
-                K[2] = h* (a*((prev_y+0.5*K[1])-(prev_x+0.5*K[1])));
-                K[3] = h* (a*((prev_y+K[2])-(prev_x+K[2])));
+                K[0] = h* (d*(prev_y-prev_x));
+                K[1] = h* (d*((prev_y+0.5*K[0])-(prev_x+0.5*K[0])));
+                K[2] = h* (d*((prev_y+0.5*K[1])-(prev_x+0.5*K[1])));
+                K[3] = h* (d*((prev_y+K[2])-(prev_x+K[2])));
                 x = prev_x + (K[0] + 2.0*K[1] + 2.0*K[2] + K[3])/6.0;
 
                 // y
-                K[0] = h* (b*prev_x-prev_y-prev_x*prev_z);
-                K[1] = h* (b*(prev_x+0.5*K[0])-(prev_y+0.5*K[0])-(prev_x+0.5*K[0])*(prev_z+0.5*K[0]));
-                K[2] = h* (b*(prev_x+0.5*K[1])-(prev_y+0.5*K[1])-(prev_x+0.5*K[1])*(prev_z+0.5*K[1]));
-                K[3] = h* (b*(prev_x+K[2])-(prev_y+K[2])-(prev_x+K[2])*(prev_z+K[2]));
+                K[0] = h* (r*prev_x-prev_y-prev_x*prev_z);
+                K[1] = h* (r*(prev_x+0.5*K[0])-(prev_y+0.5*K[0])-(prev_x+0.5*K[0])*(prev_z+0.5*K[0]));
+                K[2] = h* (r*(prev_x+0.5*K[1])-(prev_y+0.5*K[1])-(prev_x+0.5*K[1])*(prev_z+0.5*K[1]));
+                K[3] = h* (r*(prev_x+K[2])-(prev_y+K[2])-(prev_x+K[2])*(prev_z+K[2]));
                 y = prev_y + (K[0] + 2.0*K[1] + 2.0*K[2] + K[3])/6.0;
 
                 // Z
-                K[0] = h* (-c*prev_z+prev_x*prev_y);
-                K[1] = h* (-c*(prev_z+0.5*K[0])+(prev_x+0.5*K[0])*(prev_y+0.5*K[0]));
-                K[2] = h* (-c*(prev_z+0.5*K[1])+(prev_x+0.5*K[1])*(prev_y+0.5*K[1]));
-                K[3] = h* (-c*(prev_z+K[2])+(prev_x+K[2])*(prev_y+K[2]));
+                K[0] = h* (-b*prev_z+prev_x*prev_y);
+                K[1] = h* (-b*(prev_z+0.5*K[0])+(prev_x+0.5*K[0])*(prev_y+0.5*K[0]));
+                K[2] = h* (-b*(prev_z+0.5*K[1])+(prev_x+0.5*K[1])*(prev_y+0.5*K[1]));
+                K[3] = h* (-b*(prev_z+K[2])+(prev_x+K[2])*(prev_y+K[2]));
                 z = prev_z + (K[0] + 2.0*K[1] + 2.0*K[2] + K[3])/6.0;
             }
         }
@@ -119,23 +119,23 @@ QList<Element> LorenzModel::differentiate(const DiffSettings &settings)
                         z_2 = out.at(iteration-2).second.at(2),  // Yn-2
                         z_1 = out.at(iteration-1).second.at(2);  // Yn-1
 
-                x   = x_1+h*((1901.0/720.0*(a*(y_1-x_1))) -
-                             (1387.0/360.0 *(a*(y_2-x_2))) +
-                             (109.0/30.0   *(a*(y_3-x_3)))   -
-                             (637.0/360.0  *(a*(y_4-x_4)))  +
-                             (251.0/720.0  *(a*(y_5-x_5))));
+                x   = x_1+h*((1901.0/720.0*(d*(y_1-x_1))) -
+                             (1387.0/360.0 *(d*(y_2-x_2))) +
+                             (109.0/30.0   *(d*(y_3-x_3)))   -
+                             (637.0/360.0  *(d*(y_4-x_4)))  +
+                             (251.0/720.0  *(d*(y_5-x_5))));
 
-                y   = y_1+h*((1901.0/720.0*(b*x_1-y_1-x_1*z_1)) -
-                             (1387.0/360.0 *(b*x_2-y_2-x_2*z_2)) +
-                             (109.0/30.0   *(b*x_3-y_3-x_3*z_3))   -
-                             (637.0/360.0  *(b*x_4-y_4-x_4*z_4))  +
-                             (251.0/720.0  *(b*x_5-y_5-x_5*z_5)));
+                y   = y_1+h*((1901.0/720.0*(r*x_1-y_1-x_1*z_1)) -
+                             (1387.0/360.0 *(r*x_2-y_2-x_2*z_2)) +
+                             (109.0/30.0   *(r*x_3-y_3-x_3*z_3))   -
+                             (637.0/360.0  *(r*x_4-y_4-x_4*z_4))  +
+                             (251.0/720.0  *(r*x_5-y_5-x_5*z_5)));
 
-                z   = z_1 +h*((1901.0/720.0 *(-c*z_1+x_1*y_1)) -
-                              (1387.0/360.0 *(-c*z_2+x_2*y_2)) +
-                              (109.0/30.0   *(-c*z_3+x_3*y_3)) -
-                              (637.0/360.0  *(-c*z_4+x_4*y_4)) +
-                              (251.0/720.0  *(-c*z_5+x_5*y_5)));
+                z   = z_1 +h*((1901.0/720.0 *(-b*z_1+x_1*y_1)) -
+                              (1387.0/360.0 *(-b*z_2+x_2*y_2)) +
+                              (109.0/30.0   *(-b*z_3+x_3*y_3)) -
+                              (637.0/360.0  *(-b*z_4+x_4*y_4)) +
+                              (251.0/720.0  *(-b*z_5+x_5*y_5)));
             }
         }
         prev_x = x;
@@ -161,7 +161,16 @@ QPixmap LorenzModel::getFormulaPixmap()
 
 QList<StabilityPoint> LorenzModel::getEquilibriumPoints()
 {
-    return QList<StabilityPoint>();
+    StabilityPoint p1;
+    p1.point << 0.0 << 0.0 << 0.0;
+
+    StabilityPoint p2;
+    p2.point << -sqrt(b)*sqrt(r-1)
+             << -sqrt(b)*sqrt(r-1)
+             << r - 1;
+    return QList<StabilityPoint>()
+            << p1
+            << p2;
 }
 
 QList<PointComplex> LorenzModel::getEigenvalues()
@@ -177,4 +186,9 @@ QString LorenzModel::getEigenvaluesSolve()
 Point LorenzModel::getStartValues()
 {
     return startValues;
+}
+
+QString LorenzModel::resolveLambdas(const PointComplex &complex)
+{
+    return QString();
 }
